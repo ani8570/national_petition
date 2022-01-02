@@ -1,0 +1,78 @@
+
+
+<script tyee="text/javascript">
+    $(document).ready(function() {
+        var img ={};
+        img[5] = "/static/img/i10t5.jpg";
+        img[9] = "/static/img/i10t9.jpg";
+        img[11] = "/static/img/i10t11.jpg";
+        var link = {};
+        link[5] = "https://www1.president.go.kr/petitions/593255";
+        link[9] = "https://www1.president.go.kr/petitions/593282";
+        link[11] = "https://www1.president.go.kr/petitions/593206";
+        var petiion_text = {};
+        petiion_text[5] = "발암물질이 검출된 생리대 명단을 가능한 빨리 투명하게 공개해주시고 이 문제에 대한 대책을 강구해주기를 요청드리는 바입니다.'";
+        petiion_text[9] = "왜 그러는지 이유는 도통 모르겠으나 시민들의 빗발치는 항의에도 무시하고 동선공개를 안하고 시민들을 기만하고 있습니다.',  '시민들을 기만하고 불안에 떨게하고 있습니다.'";
+        petiion_text[11] = "그나마 정부에서 교사를 위한 정책으로 보조교사, 시간연장반교사를 지원해 주어서 많은 어린이집들이 혜택을 보았습니다.',  '심지어 원장딸이나 가족중 보육교사 자격증을 갖고 있는 사람을 명단만 올리고 나오지도 않는 유령교사로 나라의 보조금을 빼돌리는 양아치같은 행동을 하고 있습니다.',  '그렇지 못할꺼면 보조교사와 시간연장반 보조금을 우리 보육교사 정담임들에게 돌려주십시요.'";
+        
+        for (var key in petiion_text) { 
+            if(petiion_text[key] === "") {
+                continue;
+            }
+            $("input[name='topicnumM10']:input[value="+key+"]").prop('checked', true); 
+            $("#imgM10T").attr("src", img[key]);
+            $("#linkM10T").attr("href", link[key])
+            var text = document.getElementById("M10Text").innerText = petiion_text[key];
+            $("#M10T").load("/graph/pieM10T"+ key);
+            break;
+        }
+        var check = $("input[name='topicnumM10']");
+        check.click(function(){
+            var topicN = $("input[name='topicnumM10']:checked").val();
+            $("#imgM10T").attr("src", img[topicN]);
+            $("#linkM10T").attr("href", link[topicN])
+            var text = document.getElementById("M10Text").innerText = petiion_text[topicN];
+            $("#M10T").load("/graph/pieM10T"+topicN, function(response,stu,xhr){
+                if(stu=="error"){
+                    $("#M10T").empty();    
+                }    
+            });
+        })
+    })
+</script>
+<div class="">
+    <input type="radio" name="topicnumM10" id="bM10T5" value="5" checked="" onclick="">
+    <label for="bM10T5" class="radioT" class="first_label">Topic 5</label>
+    <input type="radio" name="topicnumM10" id="bM10T9" value="9" onclick="">
+    <label for="bM10T9" class="radioT">Topic 9</label>
+    <input type="radio" name="topicnumM10" id="bM10T11" value="11" onclick="">
+    <label for="bM10T11" class="radioT">Topic 11</label>
+</div>
+<div>
+    <table border="1" height="100%"; width="100%" style="margin: 1em auto 1em auto; text-align:center">
+        <thead>
+            <tr>
+                <td style="width: 33.3333%;">Img</td>
+                <td style="width: 33.3333%;">요약</td>
+                <td style="width: 33.3333%;">감성분석</td>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>
+                    <div  style="height: 450px; ">
+                        <a id="linkM10T" href="" target='_blank'>
+                            <img id='imgM10T' onerror="this.src='/static/img/fail.png'" style="  margin-top:75px">
+                        </a>
+                    </div>
+                </td>
+                <td>
+                    <div id='M10Text' style="line-height: 1.6; letter-spacing:3px;"></div>
+                </td>
+                <td  >
+                    <div id='M10T'></div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>

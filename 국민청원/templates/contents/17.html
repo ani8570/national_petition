@@ -1,0 +1,78 @@
+
+
+<script tyee="text/javascript">
+    $(document).ready(function() {
+        var img ={};
+        img[5] = "/static/img/i17t5.jpg";
+        img[9] = "/static/img/i17t9.jpg";
+        img[11] = "/static/img/i17t11.jpg";
+        var link = {};
+        link[5] = "https://www1.president.go.kr/petitions/598422";
+        link[9] = "https://www1.president.go.kr/petitions/598448";
+        link[11] = "https://www1.president.go.kr/petitions/598147";
+        var petiion_text = {};
+        petiion_text[5] = "저희 가족은 접종 이후 일주일간 어머니께서 겪으셨던 증상을 토대로 AZ백신의 부작용을 의심하고 있습니다.',  '저희 어머니는 정기적으로 건강검진을 받으셨고, 특별한 기저질환 없이 검진 결과가 좋았기 때문에 갑작스럽게 돌아가시게 된 원인을 AZ백신 말고는 생각할 수가 없습니다.',  '그러나 역학관리조사와 피해조사 회의 결과가 궁금하여 담당 보건소를 통해 어머니의 사망 사고를 담당 중인 경북도청에 연락을 취해보니 1차적으로 예방접종 당시 아나필락시스 쇼크가 있었다해도 사망 당시에는 쇼크로 인한 사망이 아니고, 사망 전 가슴이 답답했던 것으로 보아 심장질환으로 인한 사망일 것이라며, 정밀부검결과를 기다려보겠다고 합니다.',  '“정말로 백신 부작용에 대한 대비가 되고 있는 것이 맞습니까?” 물론 저희 어머니께서 백신 접종이 없을 때도 발생하는 자연 사망에 해당될 수도 있습니다.',  '정부를 믿고 백신을 접종했던 저희 어머니께서 잘못하신 건가요.',  '어머니께서 왜 돌아가셨는지, 그 이유가 백신 접종이 맞는지 명확한 데이터와 조사 결과, 정부의 적극적인 진상 조사만이 저희 가족을 위로할 수 있습니다.'";
+        petiion_text[9] = "현재 우리나라 코로나 확진자는 줄어들지 않고 500~700명대 계속 유지하고 있습니다.',  '학교를 보내는 학부모들도 불안하고 아이들이 걸리면 학교는 물론이고 가족까지 퍼지게 됩니다.',  '아침에 목아프고 미열이 난다고 보건소를 가려고 회사쉬고 검사 받으러 가는 사람이 있기나 할까요?',  무증상자가 '아~심심한데 PCR이나 받으러 가자' 합니까?,  '자가검사 키트의 의료보험 적용이나 국가지원으로 접근성을 편하게 해줘서 널리 보급되게 해주셨음 합니다.'";
+        petiion_text[11] = "병원이 있어야 영업이 되는 약국의 사정상 선택의 여지가 없던 아들은 이전할곳의 임대차계약서까지 작성했습니다 임대차 계약작성을 하자마자 원장C의 가족인 건물주 B는 기존에있던 약국에 새로운 약사임차인을 데리고 오는조건이면 임대차계약을 해지해주고 보증금을 반환해준다고 하였습니다.',  '그런데 새로운 약사 임차인을 데려온 다음날 건물주 B는 가족인 원장C의 지원금 명목으로 보증금 2억중 7천만원을 공제한 나머지 1억3천만 줄것이라고 통보하였습니다 아들은 처음과 얘기가 다르지 않냐며 지원금을 줄수없다고 하자 건물주는 2억중 1억2천6백을 제외하고 7천4백만원 줄것이라고 협박했으며 임신 중이었던 저희 며느리에게 전화상으로 협박도 하였습니다.',  '이 때문에 저희 아들은 정신신경과 진료를 보기도 하였습니다.'";
+        
+        for (var key in petiion_text) { 
+            if(petiion_text[key] === "") {
+                continue;
+            }
+            $("input[name='topicnumM17']:input[value="+key+"]").prop('checked', true); 
+            $("#imgM17T").attr("src", img[key]);
+            $("#linkM17T").attr("href", link[key])
+            var text = document.getElementById("M17Text").innerText = petiion_text[key];
+            $("#M17T").load("/graph/pieM17T"+ key);
+            break;
+        }
+        var check = $("input[name='topicnumM17']");
+        check.click(function(){
+            var topicN = $("input[name='topicnumM17']:checked").val();
+            $("#imgM17T").attr("src", img[topicN]);
+            $("#linkM17T").attr("href", link[topicN])
+            var text = document.getElementById("M17Text").innerText = petiion_text[topicN];
+            $("#M17T").load("/graph/pieM17T"+topicN, function(response,stu,xhr){
+                if(stu=="error"){
+                    $("#M17T").empty();    
+                }    
+            });
+        })
+    })
+</script>
+<div class="">
+    <input type="radio" name="topicnumM17" id="bM17T5" value="5" checked="" onclick="">
+    <label for="bM17T5" class="radioT" class="first_label">Topic 5</label>
+    <input type="radio" name="topicnumM17" id="bM17T9" value="9" onclick="">
+    <label for="bM17T9" class="radioT">Topic 9</label>
+    <input type="radio" name="topicnumM17" id="bM17T11" value="11" onclick="">
+    <label for="bM17T11" class="radioT">Topic 11</label>
+</div>
+<div>
+    <table border="1" height="100%"; width="100%" style="margin: 1em auto 1em auto; text-align:center">
+        <thead>
+            <tr>
+                <td style="width: 33.3333%;">Img</td>
+                <td style="width: 33.3333%;">요약</td>
+                <td style="width: 33.3333%;">감성분석</td>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>
+                    <div  style="height: 450px; ">
+                        <a id="linkM17T" href="" target='_blank'>
+                            <img id='imgM17T' onerror="this.src='/static/img/fail.png'" style="  margin-top:75px">
+                        </a>
+                    </div>
+                </td>
+                <td>
+                    <div id='M17Text' style="line-height: 1.6; letter-spacing:3px;"></div>
+                </td>
+                <td  >
+                    <div id='M17T'></div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>

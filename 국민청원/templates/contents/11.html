@@ -1,0 +1,78 @@
+
+
+<script tyee="text/javascript">
+    $(document).ready(function() {
+        var img ={};
+        img[5] = "/static/img/i11t5.jpg";
+        img[9] = "/static/img/i11t9.jpg";
+        img[11] = "/static/img/i11t11.jpg";
+        var link = {};
+        link[5] = "https://www1.president.go.kr/petitions/0";
+        link[9] = "https://www1.president.go.kr/petitions/594097";
+        link[11] = "https://www1.president.go.kr/petitions/594292";
+        var petiion_text = {};
+        petiion_text[5] = "";
+        petiion_text[9] = "다만, 이러한 코로나 시점에서 현실과 다소 동떨어진 정책이 저희를 더욱 힘들게 하고 있습니다.',  '인원만 강제로 제한하고, 그에 따라 웨딩홀의 대응방안에 대해서는 가이드라인만 제공하니 발생하는 문제입니다.',  '이러한 장소는 마스크를 쓰기만 하면 제한없이 유지가 되고 있습니다.'";
+        petiion_text[11] = "제3차 전국민정부재난지원금을 설날전에 지급하여 내수시장을 살려라.',  '15조원을 편성하여 1차때와 같이 재난지원금 편성해야 합니다.',  '설날전에 전국민정부재난지원금을 실시해야 합니다.'";
+        
+        for (var key in petiion_text) { 
+            if(petiion_text[key] === "") {
+                continue;
+            }
+            $("input[name='topicnumM11']:input[value="+key+"]").prop('checked', true); 
+            $("#imgM11T").attr("src", img[key]);
+            $("#linkM11T").attr("href", link[key])
+            var text = document.getElementById("M11Text").innerText = petiion_text[key];
+            $("#M11T").load("/graph/pieM11T"+ key);
+            break;
+        }
+        var check = $("input[name='topicnumM11']");
+        check.click(function(){
+            var topicN = $("input[name='topicnumM11']:checked").val();
+            $("#imgM11T").attr("src", img[topicN]);
+            $("#linkM11T").attr("href", link[topicN])
+            var text = document.getElementById("M11Text").innerText = petiion_text[topicN];
+            $("#M11T").load("/graph/pieM11T"+topicN, function(response,stu,xhr){
+                if(stu=="error"){
+                    $("#M11T").empty();    
+                }    
+            });
+        })
+    })
+</script>
+<div class="">
+    <input type="radio" name="topicnumM11" id="bM11T5" value="5" checked="" onclick="">
+    <label for="bM11T5" class="radioT" class="first_label">Topic 5</label>
+    <input type="radio" name="topicnumM11" id="bM11T9" value="9" onclick="">
+    <label for="bM11T9" class="radioT">Topic 9</label>
+    <input type="radio" name="topicnumM11" id="bM11T11" value="11" onclick="">
+    <label for="bM11T11" class="radioT">Topic 11</label>
+</div>
+<div>
+    <table border="1" height="100%"; width="100%" style="margin: 1em auto 1em auto; text-align:center">
+        <thead>
+            <tr>
+                <td style="width: 33.3333%;">Img</td>
+                <td style="width: 33.3333%;">요약</td>
+                <td style="width: 33.3333%;">감성분석</td>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>
+                    <div  style="height: 450px; ">
+                        <a id="linkM11T" href="" target='_blank'>
+                            <img id='imgM11T' onerror="this.src='/static/img/fail.png'" style="  margin-top:75px">
+                        </a>
+                    </div>
+                </td>
+                <td>
+                    <div id='M11Text' style="line-height: 1.6; letter-spacing:3px;"></div>
+                </td>
+                <td  >
+                    <div id='M11T'></div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>

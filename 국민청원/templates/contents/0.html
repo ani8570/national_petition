@@ -1,0 +1,118 @@
+<link rel="stylesheet" href="{{ url_for('static', filename='css/tt.css') }}">
+
+<script type="text/javascript">
+    $(document).ready(function() {
+        $("#bM1T5").on("click", function() {
+            $("#imgM1T").attr("src", "/static/img/i1t5.jpg")
+            $("#linkM1T").attr("href", "https://www1.president.go.kr/petitions/584339")
+            var text = document.getElementById("M1Text").innerText = "하지만 그것도 얼마 안되어서 더 이상은 치료를 할수없을것 같습니다 ',  '그런데 비보험 부위 (무릎 위와 몸통 부분)는 보험이 안되어서 500원 동전크기만큼이 시술비용이 일백만원이라하네요 ',  '제발 비보험부위와 백반증 환자들이 쉽게 치료를 받을 수 있도록 작은소리를 들어주세요'";
+            $("#M1T").load("/graph/pieM1T5", function(response,stu,xhr){
+                if(stu=="error"){
+                    $("#M1T").empty();    
+                }    
+            });
+        })
+        $("#bM1T9").on("click", function() {
+            $("#imgM1T").attr("src", "/static/img/i1t9.jpg")
+            $("#linkM1T").attr("href", "https://www1.president.go.kr/petitions/")
+            var text = document.getElementById("M1Text").innerText = "";
+            $("#M1T").load("/graph/pieM1T9", function(response,stu,xhr){
+                if(stu=="error"){
+                    $("#M1T").empty();    
+                }    
+            });
+        })
+        $("#bM1T11").on("click", function() {
+            $("#imgM1T").attr("src", "/static/img/i1t11.jpg")
+            $("#linkM1T").attr("href", "https://www1.president.go.kr/petitions/584517")
+            var text = document.getElementById("M1Text").innerText = "호출대기를 하는 상황에는 병원에서 일정거리(병원으로부터 30분 거리) 이상 벗어날 수 없는 등의 거리적 제한이 주어지지만 해당 거리 이내에서는 비교적 자유로이 행동할 수 있다는 점을 들어 사용자의 관리 및 감독 하에 있지 않기 때문에 근로시간으로 인정되지 않는다는 주장이 있습니다.',  '하지만 여전히 사용자의 지시에 따라 이동 시 거리적 제한이 주어지는 것은 사실이며, 이 때문에 노동자는 헌법상 보장된 거주지 이전의 자유를 포기해야만 합니다.',  '또한 호출대기 기간에는 추석이나 설날과 같은 명절에도 본가에 찾아뵙지 못하고 항상 병원 근처에 상주해 있어야 합니다.',  '뿐만 아니라 사용자의 지시를 어기고 병원에서 멀리 벗어나 호출에 응하지 않은 경우에는 응급의료 요청을 받은, 응급의료를 제공하는 당직 의료인력이 정당한 사유 없이 이를 거부하거나 기피한 것으로 간주되어 응급의료에 관한 법률 위반 소지가 될 수 있습니다.',  '이 지시를 지키기 위해 저희는 호출대기 기간에는 상시 연락이 가능하도록 준비된 상태여야 하며, 호출시 병원으로 빠른 복귀를 위해 주말, 공휴일 혹은 새벽과 같은 휴식시간에도 많은 제약을 갖고 있습니다.'";
+            $("#M1T").load("/graph/pieM1T11", function(response,stu,xhr){
+                if(stu=="error"){
+                    $("#M1T").empty();    
+                }    
+            });
+        })
+    })
+</script>
+<div id="dataArea" style="background-color: #f8f8f8;">
+    <button class="btn btn-outline-dark" type="button" class="data-oper" id="bM1T5" style="height:50pt; width:15%;">T5</button>
+    <button class="btn btn-outline-dark" type="button" class="data-oper" id="bM1T9" style="height:50pt; width:15%;">T9</button>
+    <button class="btn btn-outline-dark" type="button" class="data-oper" id="bM1T11"  style="height:50pt; width:15%;">T11</button>
+
+
+    <div class="col-4">
+        <a id="linkM1T" href="" target='_blank'>
+            <div class="layout-card" id="move-chart">
+                <img id='imgM1T' onerror="this.src='/static/img/fail.png'">
+            </div>
+        </a>
+    </div>
+    <div class="col-8">
+        <div class="layout-card" id="move-chart">
+            <div class="vtooltip" id="M1Text">
+                    (요약)
+            </div>
+        </div>
+    </div>
+    <div class="col-4">
+        <div class="layout-card" id="move-chart">
+            <div class="vskeleton-container">
+                
+                <div class="vskeleton-target" id="mention-chart-wrap" style="opacity: 1;">
+                    <div class="layout-card-header">
+                        <div class="layout-card-header-title">
+                            <h6 class="layout-card-title1">언급량 추이</h6>
+                            <a href="https://some.co.kr/analysis/social/mention#mentionTooltip" class="icon-tooltip [data-tooltip]" data-role="button" data-tooltip="" data-pt-position="top" data-pt-title="#mentionTooltip"><i class="ri-question-line"></i></a>
+
+                            <div class="vtooltip" id="mentionTooltip">
+                                <div class="vtooltip-content">
+                                    <p>분석 단어가 포함되어 있는 <br>SNS 게시글 수의 추이입니다.</p>
+                                </div>
+                            </div>
+                            <!-- //vtooltip -->
+
+                        </div>
+                        <!-- layout-card-header-title -->
+
+                        <div class="layout-card-header-buttons">
+                            <div class="term-label-type1 layout-card-term-label">
+                                <input type="radio" name="sensibilityPeriod" id="D-sensibility" value="0" checked="" onclick="gtag(&#39;event&#39;, &#39;일별 클릭&#39;, {&#39;event_category&#39;: &#39;소셜분석-언급량분석&#39;,&#39;event_label&#39;: &#39;일별(소셜-언급량&gt;언급량 차트)&#39;});">
+                                <label for="D-sensibility" class="first_label">일별</label>
+                                <input type="radio" name="sensibilityPeriod" id="W-sensibility" value="1" onclick="gtag(&#39;event&#39;, &#39;주별 클릭&#39;, {&#39;event_category&#39;: &#39;소셜분석-언급량분석&#39;,&#39;event_label&#39;: &#39;주별(소셜-언급량&gt;언급량 차트)&#39;});">
+                                <label for="W-sensibility">주별</label>
+                                <input type="radio" name="sensibilityPeriod" id="M-sensibility" value="2" onclick="gtag(&#39;event&#39;, &#39;월별 클릭&#39;, {&#39;event_category&#39;: &#39;소셜분석-언급량분석&#39;,&#39;event_label&#39;: &#39;월별(소셜-언급량&gt;언급량 차트)&#39;});">
+                                <label for="M-sensibility">월별</label>
+                            </div>
+                            <!-- //term-label-type1 -->
+
+                            
+                        </div>
+                    </div>
+                    <!-- //layout-card-header -->
+
+                    <div class="mention-data-chart">
+                        <div>
+                            <div class="card-no-data-box original-data-list" id="mentionChartExceptionDiv" style="display: none;">
+                                <div class="card-no-data-posi">
+                                    <div class="card-no-data-posi-inner">
+                                        <figure class="card-no-data-icon"><i class="ri-information-line"></i></figure>
+                                        <p class="card-no-data-text">데이터를 불러오지 못했습니다.</p>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div id="legend" class="chart-labelbox checkbox-marker">
+                                </div>
+                        </div>
+                    </div>
+                    <!-- //mention-data-chart -->
+                </div>
+                <!-- //vskeleton-target -->
+            </div>
+            <!-- //vskeleton-container -->
+        </div>
+    </div>
+        <!-- </div> -->
+    <!-- </section> -->
+ 
+</div>

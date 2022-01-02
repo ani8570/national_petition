@@ -1,0 +1,78 @@
+
+
+<script tyee="text/javascript">
+    $(document).ready(function() {
+        var img ={};
+        img[5] = "/static/img/i21t5.jpg";
+        img[9] = "/static/img/i21t9.jpg";
+        img[11] = "/static/img/i21t11.jpg";
+        var link = {};
+        link[5] = "https://www1.president.go.kr/petitions/601404";
+        link[9] = "https://www1.president.go.kr/petitions/0";
+        link[11] = "https://www1.president.go.kr/petitions/600983";
+        var petiion_text = {};
+        petiion_text[5] = "화이자 1차 접종후 하루아침에 제 남편과 두 아이의 아빠를 잃었습니다.',  그 어린 애들이요… 저희 남편은 화이자 접종 후 부작용 증상을 느낀 즉시 병원에 내원 하였는데, 결국 결과는 '사망'이라니 어디서부터 무엇이 잘못된 걸까요.,  '안전'하다는 국가의 말을 믿고 백신 접종에 적극적으로 나섰으나, 저희 가족의 결과는 참담합니다.,  '남편이 입원시점부터 현재에 이르기까지 호흡곤란과 가슴통증을 계속 호소하는데, 폐부종에 관해서만 치료하는 것이 맞냐고 물음.',  '급히 입원중인 ㅇㅇㅇㅇ병원으로 갔을 때 남편은 산소호흡기를 쓰고 있었고, 가슴을 움켜쥐고 고통스러워하며 맥없는 모습으로 들 것에 실려 구급차로 옮겨지고 있었음.',  '남편의 심장은 기계 도움 없이는 거의 뛰지 않는다고 함.',  '남편은 그렇게 인사조차 할 수 없는 상태에서 차갑게 식어가다 세상을 떠났음.',  '결과적으로 화이자백신 접종후 급격하게 심장의 무리가 와서 남편이 사망에 이름.',  '화이자백신 부작용으로 인한 저희 남편의 갑작스러운 죽음 또한 인정해 주시기 바랍니다.'";
+        petiion_text[9] = "";
+        petiion_text[11] = "위드 코로나를 선포하고, 거리두기 전면 개편을 통해 자영업자의 영업권을 보장해 주세요.',  '위드 코로나를 선포하고 자영업자·소상공인의 영업권을 보장해 주세요.'";
+        
+        for (var key in petiion_text) { 
+            if(petiion_text[key] === "") {
+                continue;
+            }
+            $("input[name='topicnumM21']:input[value="+key+"]").prop('checked', true); 
+            $("#imgM21T").attr("src", img[key]);
+            $("#linkM21T").attr("href", link[key])
+            var text = document.getElementById("M21Text").innerText = petiion_text[key];
+            $("#M21T").load("/graph/pieM21T"+ key);
+            break;
+        }
+        var check = $("input[name='topicnumM21']");
+        check.click(function(){
+            var topicN = $("input[name='topicnumM21']:checked").val();
+            $("#imgM21T").attr("src", img[topicN]);
+            $("#linkM21T").attr("href", link[topicN])
+            var text = document.getElementById("M21Text").innerText = petiion_text[topicN];
+            $("#M21T").load("/graph/pieM21T"+topicN, function(response,stu,xhr){
+                if(stu=="error"){
+                    $("#M21T").empty();    
+                }    
+            });
+        })
+    })
+</script>
+<div class="">
+    <input type="radio" name="topicnumM21" id="bM21T5" value="5" checked="" onclick="">
+    <label for="bM21T5" class="radioT" class="first_label">Topic 5</label>
+    <input type="radio" name="topicnumM21" id="bM21T9" value="9" onclick="">
+    <label for="bM21T9" class="radioT">Topic 9</label>
+    <input type="radio" name="topicnumM21" id="bM21T11" value="11" onclick="">
+    <label for="bM21T11" class="radioT">Topic 11</label>
+</div>
+<div>
+    <table border="1" height="100%"; width="100%" style="margin: 1em auto 1em auto; text-align:center">
+        <thead>
+            <tr>
+                <td style="width: 33.3333%;">Img</td>
+                <td style="width: 33.3333%;">요약</td>
+                <td style="width: 33.3333%;">감성분석</td>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>
+                    <div  style="height: 450px; ">
+                        <a id="linkM21T" href="" target='_blank'>
+                            <img id='imgM21T' onerror="this.src='/static/img/fail.png'" style="  margin-top:75px">
+                        </a>
+                    </div>
+                </td>
+                <td>
+                    <div id='M21Text' style="line-height: 1.6; letter-spacing:3px;"></div>
+                </td>
+                <td  >
+                    <div id='M21T'></div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>

@@ -1,0 +1,78 @@
+
+
+<script tyee="text/javascript">
+    $(document).ready(function() {
+        var img ={};
+        img[5] = "/static/img/i16t5.jpg";
+        img[9] = "/static/img/i16t9.jpg";
+        img[11] = "/static/img/i16t11.jpg";
+        var link = {};
+        link[5] = "https://www1.president.go.kr/petitions/597744";
+        link[9] = "https://www1.president.go.kr/petitions/597959";
+        link[11] = "https://www1.president.go.kr/petitions/597745";
+        var petiion_text = {};
+        petiion_text[5] = "저만 참으면 코로나 19 팬데믹이 한여름 소나기처럼 스쳐 지나갈 것이라 생각했습니다.',  '의료인인 아내는 우선 접종 대상자라, 백신 접종을 거부할 수도, 백신을 선택할 권리도 없었습니다.',  'AZ 백신 접종을 하고, 정부의 말만 믿고 괜찮아지겠지 하며, 진통제를 먹어가며 일했습니다.',  '호전되기를 기다렸지만, 아내는 백신 접종 후 19일 만인 지난달 31일 사지가 마비되어 병원에 입원하게 되었습니다.',  '치료비와 간병비 문제입니다.',  '일주일에 400만 원씩 나오는 치료비와 간병비를 서민이 어떻게 감당할 수 있겠습니까?',  '보건소에서는 치료가 모두 끝난 다음 치료비와 간병비를 일괄 청구하라고 합니다.',  '의학자들이 풀어내지 못하는 현상을 의학지식도 없는 일반 국민이 그 인과관계를 어떻게 입증해야 하는 것입니까?'";
+        petiion_text[9] = "그런데 한 비행단의 단장이라는 사람이 고작 축구 하나 때문에 본부의 방역 수칙을 위반하고 마스크를 벗어 던지고 5인 이상 집합 금지 명령도 어겨 버리고 축구를 하는 이 행동이 과연 정의롭고 의로운 행동이었는지 묻고 싶습니다.',  '병사들은 5인 이상 집합 금지 명령 때문에 담배조차 피지 못하고 생활관에서까지 마스크를 끼며 방역 수칙을 지키고 있는데 왜 단장은 계급이 높다는 이유로 당당하게 방역 수칙을 어기는 겁니까?'";
+        petiion_text[11] = "그러나 지금 실시되고 있는 4차 지원금 정책은 오히려 소상공인들에게 혼란과 좌절감과 무기력함을 주고 있습니다.',  '든든한 버팀목이 되겠다는 나라의 정책이 오히려 좌절감과 무기력함을 주는 꼴이 된 것이죠.',  '만약 기준점을 만들기 위한 것 이라면 2019년에 특별한 상황이 있어 매출이 줄었던 업소는 어찌 구제할 겁니까?',  '실제 주변에서도 영업제한 시간 이전에는 삼삼오오 모여 마스크 착용없이 흡연이나 대화, 식사중 수많은 대화와 떠들고 웃는 광경들이 드물지 않습니다.',  '제발 집합금지, 영업제한, 일반 업종 매출 감소 등...해당 소상공인에게 지금이라도 늦지 않았으니 매출 비교니, 반기별 비교니 잣대 들이대지 마시고 형평성있게 지원해 주시기 바랍니다.'";
+        
+        for (var key in petiion_text) { 
+            if(petiion_text[key] === "") {
+                continue;
+            }
+            $("input[name='topicnumM16']:input[value="+key+"]").prop('checked', true); 
+            $("#imgM16T").attr("src", img[key]);
+            $("#linkM16T").attr("href", link[key])
+            var text = document.getElementById("M16Text").innerText = petiion_text[key];
+            $("#M16T").load("/graph/pieM16T"+ key);
+            break;
+        }
+        var check = $("input[name='topicnumM16']");
+        check.click(function(){
+            var topicN = $("input[name='topicnumM16']:checked").val();
+            $("#imgM16T").attr("src", img[topicN]);
+            $("#linkM16T").attr("href", link[topicN])
+            var text = document.getElementById("M16Text").innerText = petiion_text[topicN];
+            $("#M16T").load("/graph/pieM16T"+topicN, function(response,stu,xhr){
+                if(stu=="error"){
+                    $("#M16T").empty();    
+                }    
+            });
+        })
+    })
+</script>
+<div class="">
+    <input type="radio" name="topicnumM16" id="bM16T5" value="5" checked="" onclick="">
+    <label for="bM16T5" class="radioT" class="first_label">Topic 5</label>
+    <input type="radio" name="topicnumM16" id="bM16T9" value="9" onclick="">
+    <label for="bM16T9" class="radioT">Topic 9</label>
+    <input type="radio" name="topicnumM16" id="bM16T11" value="11" onclick="">
+    <label for="bM16T11" class="radioT">Topic 11</label>
+</div>
+<div>
+    <table border="1" height="100%"; width="100%" style="margin: 1em auto 1em auto; text-align:center">
+        <thead>
+            <tr>
+                <td style="width: 33.3333%;">Img</td>
+                <td style="width: 33.3333%;">요약</td>
+                <td style="width: 33.3333%;">감성분석</td>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>
+                    <div  style="height: 450px; ">
+                        <a id="linkM16T" href="" target='_blank'>
+                            <img id='imgM16T' onerror="this.src='/static/img/fail.png'" style="  margin-top:75px">
+                        </a>
+                    </div>
+                </td>
+                <td>
+                    <div id='M16Text' style="line-height: 1.6; letter-spacing:3px;"></div>
+                </td>
+                <td  >
+                    <div id='M16T'></div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>

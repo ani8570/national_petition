@@ -1,0 +1,78 @@
+
+
+<script tyee="text/javascript">
+    $(document).ready(function() {
+        var img ={};
+        img[5] = "/static/img/i6t5.jpg";
+        img[9] = "/static/img/i6t9.jpg";
+        img[11] = "/static/img/i6t11.jpg";
+        var link = {};
+        link[5] = "https://www1.president.go.kr/petitions/0";
+        link[9] = "https://www1.president.go.kr/petitions/589456";
+        link[11] = "https://www1.president.go.kr/petitions/589567";
+        var petiion_text = {};
+        petiion_text[5] = "";
+        petiion_text[9] = "주체측에서는 방역에 만반을 다해 문제가 없다고 하는데 밀폐된 장소에 많은 사람들이 모이는 점과 코엑스(삼성역)가 많은 유동인구가 있다는 점을 고려하면 코로나가 재확산되는 현 상황에서 이런한 대규모의 사람들이 모이는 전시회를 진행하는 것은 매우 적절하지 않다고 보입니다.'";
+        petiion_text[11] = "정말 몇년전부터 계속해서 사회복지공무원이 과중한 업무와 스트레스로 자살하는 사건들, 민원인의 칼에 손·얼굴·목을 다쳤던 사건이 있어왔지만 현실적이고 실행가능한 해결책은 나오지않고 있었습니다.',  '현실적이고 실행가능한 해결방법을 강구하시고 꼭 개선해주시길 간절히 부탁드립니다.'";
+        
+        for (var key in petiion_text) { 
+            if(petiion_text[key] === "") {
+                continue;
+            }
+            $("input[name='topicnumM6']:input[value="+key+"]").prop('checked', true); 
+            $("#imgM6T").attr("src", img[key]);
+            $("#linkM6T").attr("href", link[key])
+            var text = document.getElementById("M6Text").innerText = petiion_text[key];
+            $("#M6T").load("/graph/pieM6T"+ key);
+            break;
+        }
+        var check = $("input[name='topicnumM6']");
+        check.click(function(){
+            var topicN = $("input[name='topicnumM6']:checked").val();
+            $("#imgM6T").attr("src", img[topicN]);
+            $("#linkM6T").attr("href", link[topicN])
+            var text = document.getElementById("M6Text").innerText = petiion_text[topicN];
+            $("#M6T").load("/graph/pieM6T"+topicN, function(response,stu,xhr){
+                if(stu=="error"){
+                    $("#M6T").empty();    
+                }    
+            });
+        })
+    })
+</script>
+<div class="">
+    <input type="radio" name="topicnumM6" id="bM6T5" value="5" checked="" onclick="">
+    <label for="bM6T5" class="radioT" class="first_label">Topic 5</label>
+    <input type="radio" name="topicnumM6" id="bM6T9" value="9" onclick="">
+    <label for="bM6T9" class="radioT">Topic 9</label>
+    <input type="radio" name="topicnumM6" id="bM6T11" value="11" onclick="">
+    <label for="bM6T11" class="radioT">Topic 11</label>
+</div>
+<div>
+    <table border="1" height="100%"; width="100%" style="margin: 1em auto 1em auto; text-align:center">
+        <thead>
+            <tr>
+                <td style="width: 33.3333%;">Img</td>
+                <td style="width: 33.3333%;">요약</td>
+                <td style="width: 33.3333%;">감성분석</td>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>
+                    <div  style="height: 450px; ">
+                        <a id="linkM6T" href="" target='_blank'>
+                            <img id='imgM6T' onerror="this.src='/static/img/fail.png'" style="  margin-top:75px">
+                        </a>
+                    </div>
+                </td>
+                <td>
+                    <div id='M6Text' style="line-height: 1.6; letter-spacing:3px;"></div>
+                </td>
+                <td  >
+                    <div id='M6T'></div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>

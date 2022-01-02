@@ -1,0 +1,78 @@
+
+
+<script tyee="text/javascript">
+    $(document).ready(function() {
+        var img ={};
+        img[5] = "/static/img/i20t5.jpg";
+        img[9] = "/static/img/i20t9.jpg";
+        img[11] = "/static/img/i20t11.jpg";
+        var link = {};
+        link[5] = "https://www1.president.go.kr/petitions/600417";
+        link[9] = "https://www1.president.go.kr/petitions/600874";
+        link[11] = "https://www1.president.go.kr/petitions/600652";
+        var petiion_text = {};
+        petiion_text[5] = "수술이력도없도 기저질환환자도 아닌 35세 건강한 여성이였습니다. 출산 후 5월에 재취업을해 어린이집교사입니다 너무 분하고 억울하고 많이힘이듭니다.  지금은 부검을 요청해논 상태이고 월요일 부검예정입니다. 빠른시일내에 처리가 될수있게 부탁드립니다.";
+        petiion_text[9] = "그리고 회사.공무원.관공서.은행 등 마스크 제대로쓰지않고 응대하는 관공서직원조차 마스크를 입만가리고 뒤에 앉아있으신분들은 벗어있는모습도 보았습니다 지금은 어디에서 나올지 모르는 상황입니다 왜 마스크도 벗지않는 학원을 마치 잠재적 범죄자취급을 하는지 이해할수없습니다 또 부산시장님 행정명령 내리시고 사적모임가서 기사에 나오지요 부산사는사람으로써 참 부끄럽습니다 행정명령내린사람이 저렇게 돌아다닌다는것이 어느 누구도 이해못할상황입니다.',  '학원 PCR 선제 검사 행정명령 2주마다 시행해야 하는 것 없애주세요.',  '이런 식의 PCR 검사는 효용가치가 없으며 불안만 초래하는 상황입니다.'";
+        petiion_text[11] = "떡류는 집합금지 업종이 아니라는것인데, ', '그럼 집합금지 업종이 요즘 호황을 누리는 곳은 어찌 생각하십니까?'";
+        
+        for (var key in petiion_text) { 
+            if(petiion_text[key] === "") {
+                continue;
+            }
+            $("input[name='topicnumM20']:input[value="+key+"]").prop('checked', true); 
+            $("#imgM20T").attr("src", img[key]);
+            $("#linkM20T").attr("href", link[key])
+            var text = document.getElementById("M20Text").innerText = petiion_text[key];
+            $("#M20T").load("/graph/pieM20T"+ key);
+            break;
+        }
+        var check = $("input[name='topicnumM20']");
+        check.click(function(){
+            var topicN = $("input[name='topicnumM20']:checked").val();
+            $("#imgM20T").attr("src", img[topicN]);
+            $("#linkM20T").attr("href", link[topicN])
+            var text = document.getElementById("M20Text").innerText = petiion_text[topicN];
+            $("#M20T").load("/graph/pieM20T"+topicN, function(response,stu,xhr){
+                if(stu=="error"){
+                    $("#M20T").empty();    
+                }    
+            });
+        })
+    })
+</script>
+<div class="">
+    <input type="radio" name="topicnumM20" id="bM20T5" value="5" checked="" onclick="">
+    <label for="bM20T5" class="radioT" class="first_label">Topic 5</label>
+    <input type="radio" name="topicnumM20" id="bM20T9" value="9" onclick="">
+    <label for="bM20T9" class="radioT">Topic 9</label>
+    <input type="radio" name="topicnumM20" id="bM20T11" value="11" onclick="">
+    <label for="bM20T11" class="radioT">Topic 11</label>
+</div>
+<div>
+    <table border="1" height="100%"; width="100%" style="margin: 1em auto 1em auto; text-align:center">
+        <thead>
+            <tr>
+                <td style="width: 33.3333%;">Img</td>
+                <td style="width: 33.3333%;">요약</td>
+                <td style="width: 33.3333%;">감성분석</td>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>
+                    <div  style="height: 450px; ">
+                        <a id="linkM20T" href="" target='_blank'>
+                            <img id='imgM20T' onerror="this.src='/static/img/fail.png'" style="  margin-top:75px">
+                        </a>
+                    </div>
+                </td>
+                <td>
+                    <div id='M20Text' style="line-height: 1.6; letter-spacing:3px;"></div>
+                </td>
+                <td  >
+                    <div id='M20T'></div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>

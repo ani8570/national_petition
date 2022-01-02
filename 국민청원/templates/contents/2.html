@@ -1,0 +1,78 @@
+
+
+<script tyee="text/javascript">
+    $(document).ready(function() {
+        var img ={};
+        img[5] = "/static/img/i2t5.jpg";
+        img[9] = "/static/img/i2t9.jpg";
+        img[11] = "/static/img/i2t11.jpg";
+        var link = {};
+        link[5] = "https://www1.president.go.kr/petitions/585659";
+        link[9] = "https://www1.president.go.kr/petitions/585884";
+        link[11] = "https://www1.president.go.kr/petitions/585714";
+        var petiion_text = {};
+        petiion_text[5] = "엑스레이 결과 척추가 휘어있고, 어깨의 균형이 한곳으로 치우쳐 있으며, 목도 거북목이라고 했고, 이것 때문에 어깨 통증이 안 낫는다고 하며 도수치료를 받으라고 했습니다.',  '그때까지 도수치료가 뭔지도 잘 몰랐고, 병원에서 알아서 잘 해주겠거니 생각하고 그 병원의 도수치료사에게 치료를 받았습니다.',  '그런데 도수치료가 다 끝나고 약 2주가 안된 시점에서 도수치료를 받은 부분(등 전체)가 갑자기 두들겨 맞은 것 같은 통증이 시작되었고 몇 주 간이나 계속되었습니다.',  그래서 저는 도수치료시에 환자에게 도수치료의 부작용에 대한 '의무고지'와 '동의서'를 반드시 받게 해야 된다고 생각합니다.,  '맨 손으로 하기 때문에 별로 부작용이 없을 것이라 생각하기 쉽지만, 전문 교육을 받은 치료사의 손은 잘못하면 흉기가 될 수 있습니다.',";
+        petiion_text[9] = "이런 비상시국에 마스크를 제때 공급받지 못해서 번호표 받고 새벽부터 줄서고,  어르신들은 계속 통화중인 전화로 과연 제대로 공급받을 수 있을까요.  본인이 속해있는 등본의 세대명대로 주민센터 통해 가족수 대로 공급받으면  불안감도 사재기도 사라지고 누구나 안정적인 방법으로 살 수 있고 온라인 오프라인으로 접속하고 줄서는 일도 없을 것이라 생각됩니다.  시청에 전화로 건의했더니 공공기관에서는 판매할 수 없다고도 하시는데  그러면 주민세에 얹어서 과세하시든지 얼마든지 이런 비상시국에는 규정에서 조금 벗어나더라도,  모든 국민이 마음 편하게 마스크라도 공급받을 수 있도록 공무원 여러분들이 수고스럽더라도 애써 주시기를 바라며 글을 올립니다.";
+        petiion_text[11] = "이번 코로나 19 사태로 인하여 전국민 모두가 힘들고 어렵습니다.  그중 소상공 자영업자 정말 하루하루 힘들게 버티고 있습니다.  정부에게 청원컨데 한시적으로 소상공 자영업자들에게 부가세를 면제 해주기를 희망합니다.";
+        
+        for (var key in petiion_text) { 
+            if(petiion_text[key] === "") {
+                continue;
+            }
+            $("input[name='topicnumM2']:input[value="+key+"]").prop('checked', true); 
+            $("#imgM2T").attr("src", img[key]);
+            $("#linkM2T").attr("href", link[key])
+            var text = document.getElementById("M2Text").innerText = petiion_text[key];
+            $("#M2T").load("/graph/pieM2T"+ key);
+            break;
+        }
+        var check = $("input[name='topicnumM2']");
+        check.click(function(){
+            var topicN = $("input[name='topicnumM2']:checked").val();
+            $("#imgM2T").attr("src", img[topicN]);
+            $("#linkM2T").attr("href", link[topicN])
+            var text = document.getElementById("M2Text").innerText = petiion_text[topicN];
+            $("#M2T").load("/graph/pieM2T"+topicN, function(response,stu,xhr){
+                if(stu=="error"){
+                    $("#M2T").empty();    
+                }    
+            });
+        })
+    })
+</script>
+<div class="">
+    <input type="radio" name="topicnumM2" id="bM2T5" value="5" checked="" onclick="">
+    <label for="bM2T5" class="radioT" class="first_label">Topic 5</label>
+    <input type="radio" name="topicnumM2" id="bM2T9" value="9" onclick="">
+    <label for="bM2T9" class="radioT">Topic 9</label>
+    <input type="radio" name="topicnumM2" id="bM2T11" value="11" onclick="">
+    <label for="bM2T11" class="radioT">Topic 11</label>
+</div>
+<div>
+    <table border="1" height="100%"; width="100%" style="margin: 1em auto 1em auto; text-align:center">
+        <thead>
+            <tr>
+                <td style="width: 33.3333%;">Img</td>
+                <td style="width: 33.3333%;">요약</td>
+                <td style="width: 33.3333%;">감성분석</td>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>
+                    <div  style="height: 450px; ">
+                        <a id="linkM2T" href="" target='_blank'>
+                            <img id='imgM2T' onerror="this.src='/static/img/fail.png'" style="  margin-top:75px">
+                        </a>
+                    </div>
+                </td>
+                <td>
+                    <div id='M2Text' style="line-height: 1.6; letter-spacing:3px;"></div>
+                </td>
+                <td  >
+                    <div id='M2T'></div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>

@@ -1,0 +1,78 @@
+
+
+<script tyee="text/javascript">
+    $(document).ready(function() {
+        var img ={};
+        img[5] = "/static/img/i9t5.jpg";
+        img[9] = "/static/img/i9t9.jpg";
+        img[11] = "/static/img/i9t11.jpg";
+        var link = {};
+        link[5] = "https://www1.president.go.kr/petitions/592941";
+        link[9] = "https://www1.president.go.kr/petitions/592818";
+        link[11] = "https://www1.president.go.kr/petitions/592444";
+        var petiion_text = {};
+        petiion_text[5] = "입원과 통원을 반복하고있는 중이며 통원치료시에도 감염이나 합병증세가 생기면 위급한 상황입니다.',  '입구에서 코로나 검사에 고열로 제지당했고 들어왔던 길로도 갈수없고, '";
+        petiion_text[9] = "수급자, 차상위 계층에게 마스크 10장이나 주고 추석을 잘 지내라 하시면서 막무가내로 통신비 대납으로 대기업에 부가가치 창출하는 이런 무식한 발상은 도대체 누가 한것입니까??',  '이낙연 대표가 했다고 하는데, 이 대표님은 시장상인들과 만나는 자리에서 저소득층(수급자, 차상위)에게 지급하겠다고 약속해 놓고 본인이 그 돈을 가져다가 통신 대기업 부가가치 발생시키고 무슨 지역경제가 살려지겠습니까?',  '3. 수급자, 차상위계층이 잘 못 뭉치고 표가 안되니, 이렇게 막대하는 줄 잘 압니다.'";
+        petiion_text[11] = "코로나19라는 유례없는 위기를 맞고 있는 모든 국민들에게 2차 재난지원금이 지급되어야 한다고 목소리를 내고자 청원을 올리게 되었습니다.',  '무엇보다 선별 없이 1차 재난지원금을 받았던 모든 국민들은 알고 있습니다.',  '정부와 국회는 재난지원금 지급을 원하는 간절한 국민들의 목소리를 듣고 재난지원금을 모두에게 조건 없이 지급해주십시오.'";
+        
+        for (var key in petiion_text) { 
+            if(petiion_text[key] === "") {
+                continue;
+            }
+            $("input[name='topicnumM9']:input[value="+key+"]").prop('checked', true); 
+            $("#imgM9T").attr("src", img[key]);
+            $("#linkM9T").attr("href", link[key])
+            var text = document.getElementById("M9Text").innerText = petiion_text[key];
+            $("#M9T").load("/graph/pieM9T"+ key);
+            break;
+        }
+        var check = $("input[name='topicnumM9']");
+        check.click(function(){
+            var topicN = $("input[name='topicnumM9']:checked").val();
+            $("#imgM9T").attr("src", img[topicN]);
+            $("#linkM9T").attr("href", link[topicN])
+            var text = document.getElementById("M9Text").innerText = petiion_text[topicN];
+            $("#M9T").load("/graph/pieM9T"+topicN, function(response,stu,xhr){
+                if(stu=="error"){
+                    $("#M9T").empty();    
+                }    
+            });
+        })
+    })
+</script>
+<div class="">
+    <input type="radio" name="topicnumM9" id="bM9T5" value="5" checked="" onclick="">
+    <label for="bM9T5" class="radioT" class="first_label">Topic 5</label>
+    <input type="radio" name="topicnumM9" id="bM9T9" value="9" onclick="">
+    <label for="bM9T9" class="radioT">Topic 9</label>
+    <input type="radio" name="topicnumM9" id="bM9T11" value="11" onclick="">
+    <label for="bM9T11" class="radioT">Topic 11</label>
+</div>
+<div>
+    <table border="1" height="100%"; width="100%" style="margin: 1em auto 1em auto; text-align:center">
+        <thead>
+            <tr>
+                <td style="width: 33.3333%;">Img</td>
+                <td style="width: 33.3333%;">요약</td>
+                <td style="width: 33.3333%;">감성분석</td>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>
+                    <div  style="height: 450px; ">
+                        <a id="linkM9T" href="" target='_blank'>
+                            <img id='imgM9T' onerror="this.src='/static/img/fail.png'" style="  margin-top:75px">
+                        </a>
+                    </div>
+                </td>
+                <td>
+                    <div id='M9Text' style="line-height: 1.6; letter-spacing:3px;"></div>
+                </td>
+                <td  >
+                    <div id='M9T'></div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>

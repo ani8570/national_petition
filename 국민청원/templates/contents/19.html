@@ -1,0 +1,78 @@
+
+
+<script tyee="text/javascript">
+    $(document).ready(function() {
+        var img ={};
+        img[5] = "/static/img/i19t5.jpg";
+        img[9] = "/static/img/i19t9.jpg";
+        img[11] = "/static/img/i19t11.jpg";
+        var link = {};
+        link[5] = "https://www1.president.go.kr/petitions/599712";
+        link[9] = "https://www1.president.go.kr/petitions/599782";
+        link[11] = "https://www1.president.go.kr/petitions/600211";
+        var petiion_text = {};
+        petiion_text[5] = "하지만 현재 코로나 백신으로 많은 사람들이 죽어가고 있고 호흡곤란, 메스꺼움이나 사지마비, 뇌출혈 등의 부작용이 속출하고 있습니다.',  '1차 접종후 심각한 휴유증을 겪는 사람의 주변 가족 및 친구들은 결국 백신접종을 거부할 가능성이 크고 1차 접종후 호흡곤란 및 두통증상을 겪는 사람에게 2차 접종을 요구하는건 폭력입니다.',  '백신접종후 심각한 부작용 및 통증이나 호흡곤란이 두려워서 백신을 거부하는 사람이 죄인입니까?',  'https://newsis.com/view/?id=NISX20210608_0001468624&cID=10101&pID=10100 그리고 또 아래의 링크는 릭 스콧 공화당 상원의원이 백신여권을 금지하는 법안을 발의했다는 외신보도 기사입니다.',  https://newsis.com/view/?id=NISX20210603_0001464326&cID=10101&pID=10100 유럽의회에서 코로나 백신을 강제하거나 백신 미접종자에게 차별을 금지하는 '백신의 윤리적 법적 실제적 고려'라는 제목의 결의안 2361을 찬성115, 반대2, 기권13의 압도적인 표차이로 유럽의회에서 통과되었습니다.";
+        petiion_text[9] = "그동안 현명하고 충성스런 국민들이 방역에 헌신적으로 참여하여 긴 시간 동안 어디를 가던 마스크를 끼고 살아, 마스크가 얼굴에 동화되어 한 부분이 되었고, 마스크를 벗으면 마치 속옷을 벗고 다니는 것 같은 부끄럽고 어색함을 느끼는 일종의 착란을 경험하고 있으며, 또 끼지 않으면 안 될 것 같은 강박에 시달리고, 또 끼지 않은 사람을 ‘기피’하는 정도가 아니라 극도로 ‘혐오’하여 마스크를 강제로 씌우는 지경까지 되었습니다.',  '우리 국민처럼 철저히 마스크 쓰는 나라는 세계에 없는데, 그럼에도 불구하고 연일 확진자가 수백 수천 명 나오는 것은 마스크가 별 효과가 없다는 실증이 아니겠습니까?',  '그동안 코로나에 대한 지식도 많이 갖게 되었습니다.',  '이제 마스크를 벗을 때가 되었습니다.'";
+        petiion_text[11] = "보육시설에 10인이상 확진자 나오면 어린이집 각종 지도점검에 보육인 1달 1회 선제검사를 2회선제 검사로 늘린다며 부모들 선제검사는 권고일 뿐이고 부모들의 긴급보육 사유에 제한을 두지 말라는 공문을 전달 받았습니다.(결국 다 맡겨도 된다는 공문) 확진자 생김 왜 모두가 보육인의 책임으로 몰고 가는지?',  '내 애가 힘들고 귀찮게 느껴지면 애를 낳지 말게 해야지...무조건 낳으면 봐준다 공수표 날리더니..코로나 터지니 부모들에겐 말 못하고 일선에서 힘들게 노동하는 보육인들에게 책임전가 하는 건 너무한 거 아닙니까?',  '매번 코로나 걸림 마녀사냥 당할까봐 노심초사 다니는것도 조심하고 매달 선제검사에 예방접종까지 한 보육교사가 위험한가요?',  '그럼에도 긴급보육 사유에 제한을 두지 말라구요?',  '정확한 지침을 만들어 줘야지...권고만으론 부모님들 알아서 가정보육 할까요?',  '이러다..코로나 뚫림 어린이집 지도점검에 교사들 선제 검사 늘린다는데..우린 이런 상황에 누구에게 탓할 수 있나요?',  '이런 와중에 보육교사만 방역 지킴 코로나 막을 수 있나요?'";
+        
+        for (var key in petiion_text) { 
+            if(petiion_text[key] === "") {
+                continue;
+            }
+            $("input[name='topicnumM19']:input[value="+key+"]").prop('checked', true); 
+            $("#imgM19T").attr("src", img[key]);
+            $("#linkM19T").attr("href", link[key])
+            var text = document.getElementById("M19Text").innerText = petiion_text[key];
+            $("#M19T").load("/graph/pieM19T"+ key);
+            break;
+        }
+        var check = $("input[name='topicnumM19']");
+        check.click(function(){
+            var topicN = $("input[name='topicnumM19']:checked").val();
+            $("#imgM19T").attr("src", img[topicN]);
+            $("#linkM19T").attr("href", link[topicN])
+            var text = document.getElementById("M19Text").innerText = petiion_text[topicN];
+            $("#M19T").load("/graph/pieM19T"+topicN, function(response,stu,xhr){
+                if(stu=="error"){
+                    $("#M19T").empty();    
+                }    
+            });
+        })
+    })
+</script>
+<div class="">
+    <input type="radio" name="topicnumM19" id="bM19T5" value="5" checked="" onclick="">
+    <label for="bM19T5" class="radioT" class="first_label">Topic 5</label>
+    <input type="radio" name="topicnumM19" id="bM19T9" value="9" onclick="">
+    <label for="bM19T9" class="radioT">Topic 9</label>
+    <input type="radio" name="topicnumM19" id="bM19T11" value="11" onclick="">
+    <label for="bM19T11" class="radioT">Topic 11</label>
+</div>
+<div>
+    <table border="1" height="100%"; width="100%" style="margin: 1em auto 1em auto; text-align:center">
+        <thead>
+            <tr>
+                <td style="width: 33.3333%;">Img</td>
+                <td style="width: 33.3333%;">요약</td>
+                <td style="width: 33.3333%;">감성분석</td>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>
+                    <div  style="height: 450px; ">
+                        <a id="linkM19T" href="" target='_blank'>
+                            <img id='imgM19T' onerror="this.src='/static/img/fail.png'" style="  margin-top:75px">
+                        </a>
+                    </div>
+                </td>
+                <td>
+                    <div id='M19Text' style="line-height: 1.6; letter-spacing:3px;"></div>
+                </td>
+                <td  >
+                    <div id='M19T'></div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>

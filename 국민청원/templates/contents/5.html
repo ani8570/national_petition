@@ -1,0 +1,78 @@
+
+
+<script tyee="text/javascript">
+    $(document).ready(function() {
+        var img ={};
+        img[5] = "/static/img/i5t5.jpg";
+        img[9] = "/static/img/i5t9.jpg";
+        img[11] = "/static/img/i5t11.jpg";
+        var link = {};
+        link[5] = "https://www1.president.go.kr/petitions/588814";
+        link[9] = "https://www1.president.go.kr/petitions/588628";
+        link[11] = "https://www1.president.go.kr/petitions/588649";
+        var petiion_text = {};
+        petiion_text[5] = "'하루하루 힘겨운 삶을 살아가고 있는 저와는 달리 그 병원은 현재 코로나바이러스 국민안심병원으로 지정까지 되었습니다.', '( 유튜브에서 ’허리디스크 틱장애‘를 검색해보시면 제 증상을 보실 수 있습니다) 이 허리가 튀는 증상은 하루 24시간 내내 몇 백번이고 크고 작게 왔으며, 이로 인해 매일 자다 깨길 반복하여 잠도 편히 자지 못하게 되었습니다.'";
+        petiion_text[9] = "코로나 터지기전 94마스크 20매2박스를 2만원도 안되는 가격에 샀습니다.',  '개학이 발표되고 아이들을 위해 엄마들은 인터넷에서 더 헤어나질 못하고 있습니다.',  '공적 마스크 남아 돈다고 합니다.'";
+        petiion_text[11] = "하지만 저소득층 한시생활지원, 지자체 긴급재난생계지원, 정부형 긴급재난지원금 이 모두를 기존 업무도 많은 사회복지직 공무원들이 다 맡고 있습니다.'";
+        
+        for (var key in petiion_text) { 
+            if(petiion_text[key] === "") {
+                continue;
+            }
+            $("input[name='topicnumM5']:input[value="+key+"]").prop('checked', true); 
+            $("#imgM5T").attr("src", img[key]);
+            $("#linkM5T").attr("href", link[key])
+            var text = document.getElementById("M5Text").innerText = petiion_text[key];
+            $("#M5T").load("/graph/pieM5T"+ key);
+            break;
+        }
+        var check = $("input[name='topicnumM5']");
+        check.click(function(){
+            var topicN = $("input[name='topicnumM5']:checked").val();
+            $("#imgM5T").attr("src", img[topicN]);
+            $("#linkM5T").attr("href", link[topicN])
+            var text = document.getElementById("M5Text").innerText = petiion_text[topicN];
+            $("#M5T").load("/graph/pieM5T"+topicN, function(response,stu,xhr){
+                if(stu=="error"){
+                    $("#M5T").empty();    
+                }    
+            });
+        })
+    })
+</script>
+<div class="">
+    <input type="radio" name="topicnumM5" id="bM5T5" value="5" checked="" onclick="">
+    <label for="bM5T5" class="radioT" class="first_label">Topic 5</label>
+    <input type="radio" name="topicnumM5" id="bM5T9" value="9" onclick="">
+    <label for="bM5T9" class="radioT">Topic 9</label>
+    <input type="radio" name="topicnumM5" id="bM5T11" value="11" onclick="">
+    <label for="bM5T11" class="radioT">Topic 11</label>
+</div>
+<div>
+    <table border="1" height="100%"; width="100%" style="margin: 1em auto 1em auto; text-align:center">
+        <thead>
+            <tr>
+                <td style="width: 33.3333%;">Img</td>
+                <td style="width: 33.3333%;">요약</td>
+                <td style="width: 33.3333%;">감성분석</td>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>
+                    <div  style="height: 450px; ">
+                        <a id="linkM5T" href="" target='_blank'>
+                            <img id='imgM5T' onerror="this.src='/static/img/fail.png'" style="  margin-top:75px">
+                        </a>
+                    </div>
+                </td>
+                <td>
+                    <div id='M5Text' style="line-height: 1.6; letter-spacing:3px;"></div>
+                </td>
+                <td  >
+                    <div id='M5T'></div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>

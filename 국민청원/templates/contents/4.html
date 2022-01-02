@@ -1,0 +1,78 @@
+
+
+<script tyee="text/javascript">
+    $(document).ready(function() {
+        var img ={};
+        img[5] = "/static/img/i4t5.jpg";
+        img[9] = "/static/img/i4t9.jpg";
+        img[11] = "/static/img/i4t11.jpg";
+        var link = {};
+        link[5] = "https://www1.president.go.kr/petitions/588004";
+        link[9] = "https://www1.president.go.kr/petitions/588078";
+        link[11] = "https://www1.president.go.kr/petitions/587552";
+        var petiion_text = {};
+        petiion_text[5] = "그런데 청주시청에서는 아이들을 도와주려 서울에서 청주까지 내려오신 단체대표를 아동들을 학대한다고 거짓진술하며 고아권익연대를 고발했습니다, 청주시청의 만행은 여기서 끝이 아닙니다.',  '더 심하게는 청주시청이 각 시설국장들에게 아이들이 집에 돌아오지 않으면 통고제를 통해 아이들을 소년원,정신병원에 보내라고 지시했습니다.',  '청주시청에 만행은 더 있습니다, 가정형편이 어렵거나 집에 사정이 있어 고아원에 오게 된걸 알면서도 아동이 동의하지도 않았는데 강제적으로 집으로 보내겠다고 협박했습니다.',  '문제는 이 농수산물의 범위를 희망원까지 포함시킨다는것이죠.아이들이 솔직히 뭔죄가 있습니까?',  '이 고아원에 문제가 있는것을 빌미로 삼아서 희망원응 패쇄시키고 농수산물을 도입하려는것이 그들의 최종목적입니다.정말 비열하고 비겁한 짓 아닙니까?'";
+        petiion_text[9] = "우리나라에 어린이는 8세 이하이고 그부모들만 혜택을 받아야합니까?'";
+        petiion_text[11] = "인건비 지원'인 '국공립 어린이집'이 아닌이상 원아의 보육료로 어린이집을 운영하는 입장에서 장기화된 휴원으로 인한 아동퇴소등의 보육료 공백에 대한 대책이 있는건지 또 대책이 있다면 어떤 지원을 기대할 수 있는건지 알고 싶습니다.,  지금 현재 어린이집 운영자의 입장에서 퇴소원아가 발생하더락도 '아동대 선생님 비율'로 인해 교사들을 해고할 수 도 없고 긴급보육을 무조건 진행하라고 하는 보건복지부의 명령에 의해 지금 현재는 손해를 감수하고 진행하고 있으나 장기화 되는 휴원연장으로 인한 어린이집에 대한 손해에 대한 대책이 마련되어있는건지요.,  '근데 이럴 수도 없는 어린이집 운영자의 입장에서 시공군 및 보건복지부 그리고 나라 정책을 움직이는 윗분들의 대책을 듣고 싶습니다.',  '어떤 지원도 없는 참담한 상황의 운영자 입장에서 차라리 휴원을 하면 원의 최소한의 월세 및 관리비 정도만 지출하면 되지만 긴급보육을 하라 하시면 교사는 출근하니 인건비 및 식비, 교재비 등등 지출사항들은 더 많이 지출되고 있습니다.'";
+        
+        for (var key in petiion_text) { 
+            if(petiion_text[key] === "") {
+                continue;
+            }
+            $("input[name='topicnumM4']:input[value="+key+"]").prop('checked', true); 
+            $("#imgM4T").attr("src", img[key]);
+            $("#linkM4T").attr("href", link[key])
+            var text = document.getElementById("M4Text").innerText = petiion_text[key];
+            $("#M4T").load("/graph/pieM4T"+ key);
+            break;
+        }
+        var check = $("input[name='topicnumM4']");
+        check.click(function(){
+            var topicN = $("input[name='topicnumM4']:checked").val();
+            $("#imgM4T").attr("src", img[topicN]);
+            $("#linkM4T").attr("href", link[topicN])
+            var text = document.getElementById("M4Text").innerText = petiion_text[topicN];
+            $("#M4T").load("/graph/pieM4T"+topicN, function(response,stu,xhr){
+                if(stu=="error"){
+                    $("#M4T").empty();    
+                }    
+            });
+        })
+    })
+</script>
+<div class="">
+    <input type="radio" name="topicnumM4" id="bM4T5" value="5" checked="" onclick="">
+    <label for="bM4T5" class="radioT" class="first_label">Topic 5</label>
+    <input type="radio" name="topicnumM4" id="bM4T9" value="9" onclick="">
+    <label for="bM4T9" class="radioT">Topic 9</label>
+    <input type="radio" name="topicnumM4" id="bM4T11" value="11" onclick="">
+    <label for="bM4T11" class="radioT">Topic 11</label>
+</div>
+<div>
+    <table border="1" height="100%"; width="100%" style="margin: 1em auto 1em auto; text-align:center">
+        <thead>
+            <tr>
+                <td style="width: 33.3333%;">Img</td>
+                <td style="width: 33.3333%;">요약</td>
+                <td style="width: 33.3333%;">감성분석</td>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>
+                    <div  style="height: 450px; ">
+                        <a id="linkM4T" href="" target='_blank'>
+                            <img id='imgM4T' onerror="this.src='/static/img/fail.png'" style="  margin-top:75px">
+                        </a>
+                    </div>
+                </td>
+                <td>
+                    <div id='M4Text' style="line-height: 1.6; letter-spacing:3px;"></div>
+                </td>
+                <td  >
+                    <div id='M4T'></div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>

@@ -1,0 +1,78 @@
+
+
+<script tyee="text/javascript">
+    $(document).ready(function() {
+        var img ={};
+        img[5] = "/static/img/i18t5.jpg";
+        img[9] = "/static/img/i18t9.jpg";
+        img[11] = "/static/img/i18t11.jpg";
+        var link = {};
+        link[5] = "https://www1.president.go.kr/petitions/599376";
+        link[9] = "https://www1.president.go.kr/petitions/598791";
+        link[11] = "https://www1.president.go.kr/petitions/598911";
+        var petiion_text = {};
+        petiion_text[5] = "[ 백신 접종 후 '급성 횡단성 척수염' 진단을 받고 사경을 헤매는 요양보호사 저희 어머니를 외면하지 말아주세요 ] 저희 어머니는 지난 4월, 아스트라제네카(AZ) 백신 접종 후 현재 ‘급성 횡단성 척수염’ 진단(희귀병)을 받으시고, 중환자실에서 사경을 헤매고 있습니다.,  '하지만, 앞에서도 언급했던 것처럼 저희 어머니는 이 백신을 맞고 ‘급성 횡단성 척수염’ 진단을 받았음에도 불구하고 정부로부터 아무 도움을 받을 수 없었습니다.',  '정부가 부작용에 대해 대응해 줄 것을 약속했기 때문에 어머니는 그것을 믿고 백신을 맞았지만 그 결과가 몇 프로 안되는 부작용 대상자가 되었고, 일상으로의 복귀가 불가능할지도 모르는 중증 상태입니다.',  '둘째, 백신 부작용 환자에 대한 정부의 선제적 치료 지원을 요구합니다.',  '앞에서도 언급했지만 저희 어머니는 생업을 위해 어쩔 수 없는 ‘백신 접종’이라는 선택을 하였고, 그 결과, 전신 마비로 인해 어머니의 생업이 중단됨은 물론 기약 없는 치료와 지출이 발생하고 있습니다.',  '그러나 이를 믿고 백신 접종을 해 부작용이 발생한 저희 어머니는 현재 정부에서 아무 지원 혹은 책임도 받지 못하고 스스로의 힘으로 극복해나가야 하는 상황에 처해 있습니다.'";
+        petiion_text[9] = "저희가 알기로는 현재 7월부터 1차 접종만으로 공원, 등산로 등 야외에서 2M간격을 두지 않아도 마스크를 벗을 수 있다고 정부에서 발표한 것으로 알고 있습니다.',  '학생들도 아무리 야외에서만이라도 마스크를 벗을 수 있다고 하지만 굉장히 위험하며 성급한 결정이라고 생각합니다.'";
+        petiion_text[11] = "현재 공단의 직원으로서 고객센터(콜센터)의 직영화 및 직고용 주장으로 인해 피해를 보고 있는 한사람의 직원으로서 그리고 이러한 직고용이 실행되면, 지금의 건강보험료 적자 피해에 더해서 이부분을 끌어앉아야 하는 한사람의 국민으로서 청원을 올립니다.',  '현 정부에서 추진하는 “비정규직 철폐” 주장으로 수 많은 공공기관에서 비정규직이 직고용 되거나 직영화 혹은 정규직(무기계약직포함)으로 전환 되었습니다.',  '한국도로공사를 자회사로 정규직 전환을 마쳤으나 도로공사 자회사 직원들은 지금까지도 자회사가 아닌 본사 직고용을 끊임없이 주장하고 있습니다.',  '인천국제공항공사는 코로나 및 정규직 전환으로 인해 지난해 첫 적자에서 올해는 8600억여원으로 적자가 늘어나고 있습니다.',  '무조건적인 직고용, 직영화는 아니라고 생각합니다.'";
+        
+        for (var key in petiion_text) { 
+            if(petiion_text[key] === "") {
+                continue;
+            }
+            $("input[name='topicnumM18']:input[value="+key+"]").prop('checked', true); 
+            $("#imgM18T").attr("src", img[key]);
+            $("#linkM18T").attr("href", link[key])
+            var text = document.getElementById("M18Text").innerText = petiion_text[key];
+            $("#M18T").load("/graph/pieM18T"+ key);
+            break;
+        }
+        var check = $("input[name='topicnumM18']");
+        check.click(function(){
+            var topicN = $("input[name='topicnumM18']:checked").val();
+            $("#imgM18T").attr("src", img[topicN]);
+            $("#linkM18T").attr("href", link[topicN])
+            var text = document.getElementById("M18Text").innerText = petiion_text[topicN];
+            $("#M18T").load("/graph/pieM18T"+topicN, function(response,stu,xhr){
+                if(stu=="error"){
+                    $("#M18T").empty();    
+                }    
+            });
+        })
+    })
+</script>
+<div class="">
+    <input type="radio" name="topicnumM18" id="bM18T5" value="5" checked="" onclick="">
+    <label for="bM18T5" class="radioT" class="first_label">Topic 5</label>
+    <input type="radio" name="topicnumM18" id="bM18T9" value="9" onclick="">
+    <label for="bM18T9" class="radioT">Topic 9</label>
+    <input type="radio" name="topicnumM18" id="bM18T11" value="11" onclick="">
+    <label for="bM18T11" class="radioT">Topic 11</label>
+</div>
+<div>
+    <table border="1" height="100%"; width="100%" style="margin: 1em auto 1em auto; text-align:center">
+        <thead>
+            <tr>
+                <td style="width: 33.3333%;">Img</td>
+                <td style="width: 33.3333%;">요약</td>
+                <td style="width: 33.3333%;">감성분석</td>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>
+                    <div  style="height: 450px; ">
+                        <a id="linkM18T" href="" target='_blank'>
+                            <img id='imgM18T' onerror="this.src='/static/img/fail.png'" style="  margin-top:75px">
+                        </a>
+                    </div>
+                </td>
+                <td>
+                    <div id='M18Text' style="line-height: 1.6; letter-spacing:3px;"></div>
+                </td>
+                <td  >
+                    <div id='M18T'></div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>

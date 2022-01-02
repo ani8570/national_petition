@@ -1,0 +1,78 @@
+
+
+<script tyee="text/javascript">
+    $(document).ready(function() {
+        var img ={};
+        img[5] = "/static/img/i14t5.jpg";
+        img[9] = "/static/img/i14t9.jpg";
+        img[11] = "/static/img/i14t11.jpg";
+        var link = {};
+        link[5] = "https://www1.president.go.kr/petitions/596578";
+        link[9] = "https://www1.president.go.kr/petitions/596340";
+        link[11] = "https://www1.president.go.kr/petitions/596318";
+        var petiion_text = {};
+        petiion_text[5] = "병원” 진료과정에 신경외과 의사는 MIR CD만 검토하면서 본인에게 “하반신 마비”가 올수 있다고 자기(**병원) 병원에서 MIR 촬영을 권유하여 촬영후 의사의 MIR판독의 설명을 듣고 수도권 병원에서 수술하게 되면 환자 본인과 보호자의 어려움과 경제적인 문제가 어려워서 수술을 하기로 결심,3일 뒤에 수술에 앞서 각종 검사를 해야 하기 때문에 “지난 치료 병력 사본”을 가지고 오라고 의사와 보조 간호사가 말해 제출 했는데.',  '신경외과 의사는 검사기록부를 확인, 우리병원<**병원>에서는 수술을 할수 없고 협진과 있는 종합병원으로 가라는 말에 매우 실망스러웠습니다.',  '제가 수술을 하고자 하는 < **병원>에서 마치 수술을 할 것같이 환자에게 말을 했는데도 <내과> 의사는 <수술거절>로 실망스럽다는 것은 국가의 의료정책을 위배 되지 않은지를 묻고 싶다는 생각임을 말씀드리며, 각종질병을 치료하기 의해서 모든 국민의 발걸음이 헛되지 않기 위한 진실과 믿음으로 공정한 의료정책이 국민에게 실행될 수있게 국민의 한 사람으로서 용기를 내어 대통령님에게 청원의 글을 올림니다.'";
+        petiion_text[9] = "코로나 예방에 마스크 착용의 중요성을 누구나 알고 있는 이 시기에 집단감염의 원인을 논리에도 잘 맞지 않는 3밀을 적용하여 이에 해당되는 업종을 찾아 제재만 하려 하지 마시고 그 업종에서 마스크를 내리지 못하게 하는 강력한 방역대책을 만들어 시행해 주셨으면 좋겠습니다 (예) 버스 지하철의 마스크 미착용 신고 제도를 확대하여 실내체육시설이나 기타 업종 등에도 적용하고 이를 위반 시 강려한 처벌 실시 다 같이 힘들고 어려운 이 시기에 항상 생각하고 힘써주시는 거 잘 알고 있습니다.'";
+        petiion_text[11] = "윤태호 중앙사고수습본부 방역총괄반장은 1일 백브리핑을 통해 교회의 경우 밀집도가 낮고 사전의 방역조치들이 이뤄져 지금까지 대면 예배를 통한 감염은 거의 없었다며 밀집도를 유지하고 방역수칙을 준수한다면 대면 예배 자체가 감염위험도가 높은 행위는 아니라고 판단했다고 밝혔습니다 https://www.newspim.com/news/view/20210201000657 이것은 그동안 마스크를 쓰면 어깨를 맞대고 타는 지하철은 안정하다며, 1미터씩 떨어져 앉는 예배는 감염될 수 있다는 것은 비과학적 주장이다며 기독교계가 주장해 온 바가 맞았음을 보여 주는 결과입니다.',  '정부는 정부의 브리핑과 교회 예배 규제 행정명령이 비과학적인 면이 있었음을 언론사 브리핑에서 인정하고, 교회와 기독교인들의 피해를 복구하기 위해 보도해 줄 것을 요청하시기 바랍니다.',  '정부는 지자체장들에게도 비과학적인 예배 금지 행정명령 남발을 하지 말 것을 요청하고, 지자체 안전문자로도 위의 첫번째 안전문자 내용을 시도민들에게 전송하여, 코로나 방역과 무관하게 특정 그룹을 혐오대상화 한 것에 대한 피해를 복원하도록 해주시기 바랍니다.'";
+        
+        for (var key in petiion_text) { 
+            if(petiion_text[key] === "") {
+                continue;
+            }
+            $("input[name='topicnumM14']:input[value="+key+"]").prop('checked', true); 
+            $("#imgM14T").attr("src", img[key]);
+            $("#linkM14T").attr("href", link[key])
+            var text = document.getElementById("M14Text").innerText = petiion_text[key];
+            $("#M14T").load("/graph/pieM14T"+ key);
+            break;
+        }
+        var check = $("input[name='topicnumM14']");
+        check.click(function(){
+            var topicN = $("input[name='topicnumM14']:checked").val();
+            $("#imgM14T").attr("src", img[topicN]);
+            $("#linkM14T").attr("href", link[topicN])
+            var text = document.getElementById("M14Text").innerText = petiion_text[topicN];
+            $("#M14T").load("/graph/pieM14T"+topicN, function(response,stu,xhr){
+                if(stu=="error"){
+                    $("#M14T").empty();    
+                }    
+            });
+        })
+    })
+</script>
+<div class="">
+    <input type="radio" name="topicnumM14" id="bM14T5" value="5" checked="" onclick="">
+    <label for="bM14T5" class="radioT" class="first_label">Topic 5</label>
+    <input type="radio" name="topicnumM14" id="bM14T9" value="9" onclick="">
+    <label for="bM14T9" class="radioT">Topic 9</label>
+    <input type="radio" name="topicnumM14" id="bM14T11" value="11" onclick="">
+    <label for="bM14T11" class="radioT">Topic 11</label>
+</div>
+<div>
+    <table border="1" height="100%"; width="100%" style="margin: 1em auto 1em auto; text-align:center">
+        <thead>
+            <tr>
+                <td style="width: 33.3333%;">Img</td>
+                <td style="width: 33.3333%;">요약</td>
+                <td style="width: 33.3333%;">감성분석</td>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>
+                    <div  style="height: 450px; ">
+                        <a id="linkM14T" href="" target='_blank'>
+                            <img id='imgM14T' onerror="this.src='/static/img/fail.png'" style="  margin-top:75px">
+                        </a>
+                    </div>
+                </td>
+                <td>
+                    <div id='M14Text' style="line-height: 1.6; letter-spacing:3px;"></div>
+                </td>
+                <td  >
+                    <div id='M14T'></div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>

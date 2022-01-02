@@ -1,0 +1,31 @@
+{% extends "includes/header.html"  %}
+{% block content %}
+    <style>
+        select {
+            width: 200px;
+            padding: .8em .5em;
+            font-family: inherit;
+            background: url(https://farm1.staticflickr.com/379/19928272501_4ef877c265_t.jpg) no-repeat 95% 50%;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            appearance: none;
+            border: 1px solid #999;
+            border-radius: 0px;
+        }
+        
+        select::-ms-expand {
+        /* for IE 11 */
+        display: none;
+        }
+        
+        
+    </style>
+    
+    
+    <div id="banner" style="width: 100%; height: 100%;">
+        <a href='/timelinr'>
+            <img id="main" src="{{url_for('static', filename = '/img/main.PNG')}}">
+        </a>
+    </div>
+    
+{% endblock %}

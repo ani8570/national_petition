@@ -1,0 +1,78 @@
+
+
+<script tyee="text/javascript">
+    $(document).ready(function() {
+        var img ={};
+        img[5] = "/static/img/i7t5.jpg";
+        img[9] = "/static/img/i7t9.jpg";
+        img[11] = "/static/img/i7t11.jpg";
+        var link = {};
+        link[5] = "https://www1.president.go.kr/petitions/590862";
+        link[9] = "https://www1.president.go.kr/petitions/590346";
+        link[11] = "https://www1.president.go.kr/petitions/590596";
+        var petiion_text = {};
+        petiion_text[5] = " '이제는 몸이 닿지 않아도 사포로 미는 듯한 통증이 지속돼서 어떻게 이 몸으로 하루를 버텨야 할지 매일 눈물로 지내고 있습니다.',  'CBD 오일 처방과 건강보험료 급여화 말씀드린 것처럼, 섬유 근육통은 암 환자만큼 아픈 사람도 많고 그 이상의 고통을 겪는 환자도 많습니다.',  '그런데도 마약 진통제 처방도 제대로 받을 수 없고 약이 없다 보니까 정신과 약과 진통제를 복용하며 온전히 하루 종일 통증으로 인해 고통 속에 살고 있습니다.',  'CBD 오일은 대마 오일이라고 해서 우리나라의 경우 특정 질병에 대해서만 사용할 수 있도록 되어 있고 가격도 비급여로 극소량이 100만 원이 넘는 가격으로 구매해야 하는 것으로 알고 있습니다.',  '당연히 저희 같은 통증 환자는 이 오일을 복용할 대상자로 분류되어 있지 않아서 구매를 할 수가 없습니다.',  '해당 오일을 남용하게 되는 우려로 복용을 엄격하게 규제하고 있는 것을 이해하지만, 저희와 같이 특별한 약도 없이 온몸의 통증을 매일 겪는 사람들에게는 너무나 간절한 것이기에 CBD 오일을 복용할 수 있도록 기준 완화 및 건강보험료 적용을 원합니다.',  '아픈 사람들이 조금이라도 덜 고통스럽게 살기를 간절히 바라며 청원 게시판에 올린 이 글이 우리 섬유 근육통 환자들에게 도움이 되기를 바랍니다.'";
+        petiion_text[9] = "이렇게 우리 선원들은 떠다니는 감옥에 수감된 것마냥 외부와 단절되었지만 우리가 뚫리면 대한민국이 뚫린다는 생각으로 감내해왔고 선상에서 걸리면 죽는다는 생각으로 그 누구보다 철저한 방역 체계를 구축하고 있었습니다.',  '검역의 허술함에 대한 강화 방안이나 허위 보고에 대한 강한 처벌과 같은 인과 관계가 명확한 대책이 마련되어야하나 검역관이 없고 그 많은 선박을 다 올라갈 수 없으니 하선한 선원들은 자가격리 해야된다고 현재 정부나 부산시는 엉뚱한 대책을 마련하였습니다.',  '코로나 대응지침상 연차 휴가 강제 소진 불가하다고 나와있지만 선원들은 해당 사항 없습니다.',  '우리 한국 선원들은 선상에서 그 어떠한 곳보다 방역 체계를 확실하게 구축하고 있습니다.',  '게다가 승선자는 14일간 선상에서 별도로 생활 공간을 만들어서 생활하게 하고 승선하는 모든 작업자에 대해서 발열 체크 및 2m 거리두기를 철저히 시행하고 있습니다.',  '그래서 철저한 방역 체계를 구축하고 운영하고 있습니다.',  '매일같이 수많은 선박에 승선하는 도선사들이나 선박의 수리를 위해 승선하는 작업자들은 코로나 검사나 어떠한 안전조치 없이 올라와 선내에 승선하고 있는 선원들을 불안에 떨게 방치하면서 이미 오랜 기간(항해일수 14일이상) 동안 항해하고 온 선원들에게 추가 자가격리를 요구하는 것은 너무나도 부당한 처사입니다.'";
+        petiion_text[11] = "교회의 식사제공금지를 중앙재난안전대책본부가 발표했다.  규준도 없이 무조건적인 식사금지의 형평성이 문제가 된다.  모든 식당이 문을 닫아야하며,  공무원 식당도 모두 폐쇄되어 제공하지 말하야한다.  교회만은 타킷으로 삼아 식사제공 금지등의 조치를 취하해 주시고,  공평과 탕평으로 모두가 인정되는 기준을 가지고  동일하게 적용할 수 있는 조치를 취해주시길  간곡히 부탁드리며 이에, 청원하는 바 입니다";
+        
+        for (var key in petiion_text) { 
+            if(petiion_text[key] === "") {
+                continue;
+            }
+            $("input[name='topicnumM7']:input[value="+key+"]").prop('checked', true); 
+            $("#imgM7T").attr("src", img[key]);
+            $("#linkM7T").attr("href", link[key])
+            var text = document.getElementById("M7Text").innerText = petiion_text[key];
+            $("#M7T").load("/graph/pieM7T"+ key);
+            break;
+        }
+        var check = $("input[name='topicnumM7']");
+        check.click(function(){
+            var topicN = $("input[name='topicnumM7']:checked").val();
+            $("#imgM7T").attr("src", img[topicN]);
+            $("#linkM7T").attr("href", link[topicN])
+            var text = document.getElementById("M7Text").innerText = petiion_text[topicN];
+            $("#M7T").load("/graph/pieM7T"+topicN, function(response,stu,xhr){
+                if(stu=="error"){
+                    $("#M7T").empty();    
+                }    
+            });
+        })
+    })
+</script>
+<div class="">
+    <input type="radio" name="topicnumM7" id="bM7T5" value="5" checked="" onclick="">
+    <label for="bM7T5" class="radioT" class="first_label">Topic 5</label>
+    <input type="radio" name="topicnumM7" id="bM7T9" value="9" onclick="">
+    <label for="bM7T9" class="radioT">Topic 9</label>
+    <input type="radio" name="topicnumM7" id="bM7T11" value="11" onclick="">
+    <label for="bM7T11" class="radioT">Topic 11</label>
+</div>
+<div>
+    <table border="1" height="100%"; width="100%" style="margin: 1em auto 1em auto; text-align:center">
+        <thead>
+            <tr>
+                <td style="width: 33.3333%;">Img</td>
+                <td style="width: 33.3333%;">요약</td>
+                <td style="width: 33.3333%;">감성분석</td>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>
+                    <div  style="height: 450px; ">
+                        <a id="linkM7T" href="" target='_blank'>
+                            <img id='imgM7T' onerror="this.src='/static/img/fail.png'" style="  margin-top:75px">
+                        </a>
+                    </div>
+                </td>
+                <td>
+                    <div id='M7Text' style="line-height: 1.6; letter-spacing:3px;"></div>
+                </td>
+                <td  >
+                    <div id='M7T'></div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>

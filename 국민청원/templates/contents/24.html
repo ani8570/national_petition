@@ -1,0 +1,78 @@
+
+
+<script tyee="text/javascript">
+    $(document).ready(function() {
+        var img ={};
+        img[5] = "/static/img/i24t5.jpg";
+        img[9] = "/static/img/i24t9.jpg";
+        img[11] = "/static/img/i24t11.jpg";
+        var link = {};
+        link[5] = "https://www1.president.go.kr/petitions/602773";
+        link[9] = "https://www1.president.go.kr/petitions/602789";
+        link[11] = "https://www1.president.go.kr/petitions/603008";
+        var petiion_text = {};
+        petiion_text[5] = "2021년 9월 6일 잠을 자고 일어났는데 갑자기 왼쪽 팔에 피멍이 들었습니다.',  '그래서 급하게 구미 *** 병원 응급실로 향했고, 선생님께서 결과지를 보시고는 더 큰 병원을 가야한다는 말씀 뿐이셨고, 저는 감염내과가 있는 칠곡 ***학교 병원에서 피검사를 재검사했습니다.',  '하지만 하루라도 치료가 늦으면 더 심해질 것이라는 생각에 부모님과 상의 후 2021년 9월 11일 새벽에 서울 성모병원 응급실로 갔습니다.',  '하지만 응급실에 결과지를 보여주고, 피검사를 다시 해보아도 백혈병이라는 진단은 변함없었습니다.',  '그런데 갑자기 백혈병이라는 진단이 너무 어이없고, 당황스럽습니다.',  '처음에는 백신 부작용이라는 사실을 부정하고 싶었고, 인정하고 싶지 않았지만 저와 같은 피해자분들이 정말 많이 있다는 사실을 알게 되었고, 제가 수백번을 되돌아 생각해 봐도 백신의 부작요이 맞는 것 같다는 생각이 들었습니다.'";
+        petiion_text[9] = "'코로나로부터 아이들을 지켜주세요 제발 부탁드려요 지칠때로 지쳐있는 코로나로 인한 나날들..저희 아이들에게는 더이상 매일 마스크를 써야하는 고통 말고도..더이상 겪고싶지도..겪지않아도 되는..겪지말아야할..겪어서도 안될..'";
+        petiion_text[11] = "여태 정부의 방역을 2년 가까이 문닫으라면 문 닫고 단체손님 받지마라하여 받지않고 다 따라주었지만 결과는 무엇입니까?',  '2차 백신접종률80%임에도 불구하고 백신을 맞지 않았던 예전에 비해 하루 확진자가 크게 늘어 나는 건 통계학을 접하지 않은 저로써도 도저히 이해가 가지 않는 수치들입니다.',  '하지만 이번 코로나백신은 말도 많은 기저질환자에 대한 임상실험은 하지도 않고 급하게 끝낸 안정성이 확보되지 않은 백신을 왜 국민들에게 강제하며 맞추는지 의문입니다.',  '자영업자들이 감시자들도 아니고 왜 방역을 지키지 않는 국민은 벌금 10만원 자영업자는 150만원인지 이해가 가지 않습니다.',  '저희는 K방역이라고 분명 초반에 코로나방역이 성공했던 나라였습니다.',  '부디 개인의자유를 침해하지않는선에서 예전 방역성공했을때와 지금 뭐가 다른지를 제대로 고민해보시고 이렇게 쉬운 문제의 답을 하루 빨리 찾아 마스크 없는 일상을 찾을 수 있게 꼭 도와주십시요.'";
+        
+        for (var key in petiion_text) { 
+            if(petiion_text[key] === "") {
+                continue;
+            }
+            $("input[name='topicnumM24']:input[value="+key+"]").prop('checked', true); 
+            $("#imgM24T").attr("src", img[key]);
+            $("#linkM24T").attr("href", link[key])
+            var text = document.getElementById("M24Text").innerText = petiion_text[key];
+            $("#M24T").load("/graph/pieM24T"+ key);
+            break;
+        }
+        var check = $("input[name='topicnumM24']");
+        check.click(function(){
+            var topicN = $("input[name='topicnumM24']:checked").val();
+            $("#imgM24T").attr("src", img[topicN]);
+            $("#linkM24T").attr("href", link[topicN])
+            var text = document.getElementById("M24Text").innerText = petiion_text[topicN];
+            $("#M24T").load("/graph/pieM24T"+topicN, function(response,stu,xhr){
+                if(stu=="error"){
+                    $("#M24T").empty();    
+                }    
+            });
+        })
+    })
+</script>
+<div class="">
+    <input type="radio" name="topicnumM24" id="bM24T5" value="5" checked="" onclick="">
+    <label for="bM24T5" class="radioT" class="first_label">Topic 5</label>
+    <input type="radio" name="topicnumM24" id="bM24T9" value="9" onclick="">
+    <label for="bM24T9" class="radioT">Topic 9</label>
+    <input type="radio" name="topicnumM24" id="bM24T11" value="11" onclick="">
+    <label for="bM24T11" class="radioT">Topic 11</label>
+</div>
+<div>
+    <table border="1" height="100%"; width="100%" style="margin: 1em auto 1em auto; text-align:center">
+        <thead>
+            <tr>
+                <td style="width: 33.3333%;">Img</td>
+                <td style="width: 33.3333%;">요약</td>
+                <td style="width: 33.3333%;">감성분석</td>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>
+                    <div  style="height: 450px; ">
+                        <a id="linkM24T" href="" target='_blank'>
+                            <img id='imgM24T' onerror="this.src='/static/img/fail.png'" style="  margin-top:75px">
+                        </a>
+                    </div>
+                </td>
+                <td>
+                    <div id='M24Text' style="line-height: 1.6; letter-spacing:3px;"></div>
+                </td>
+                <td  >
+                    <div id='M24T'></div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>

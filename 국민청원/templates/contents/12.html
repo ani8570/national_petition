@@ -1,0 +1,78 @@
+
+
+<script tyee="text/javascript">
+    $(document).ready(function() {
+        var img ={};
+        img[5] = "/static/img/i12t5.jpg";
+        img[9] = "/static/img/i12t9.jpg";
+        img[11] = "/static/img/i12t11.jpg";
+        var link = {};
+        link[5] = "https://www1.president.go.kr/petitions/594399";
+        link[9] = "https://www1.president.go.kr/petitions/594953";
+        link[11] = "https://www1.president.go.kr/petitions/594474";
+        var petiion_text = {};
+        petiion_text[5] = "백신개발사들이 부작용면책을 조건으로 협상을 진행한다고 합니다.  코로나방역이 군에서는 특히 엄격한 현실로 미루어보면,  군인들대상 우선접종을 예상할수있습니다.  민간인은 부작용을 우려 접종을 뒤로 미룰수 있으나 군대상 강제접종시 군인의 신분상 거부할수 없습니다.  제 아이도 군 복무중입니다.  부작용 우려가 단 1%라도 있다면 군인대상 강제접종은 절대로 있어서는 안됩니다.  모두 우리의 아들입니다.  국민의 의무를 다하기 위해 군에 가있는 우리 아들들이 부작용백신의 실험대상이 되어선 안됩니다";
+        petiion_text[9] = "출근시 마스크착용, 열체크와 손소독을 시행하는 곳은 극히 몇개 될지 모르며, 대면 영업을 하고 있는 보험사 법인사무실들이 코로나19 전염 매개체가 되고 있는 현실입니다.',  '코로나19 전염된지도 모르고 일주일간 매일 다른지역 법인사무실로 방문 지원갔다가 저와 접촉한 근무자들 모두 자가격리대상자로 만들고 경제적 활동을 할 수 없게 만들었다는 비난을 받았고, 다행히 접촉자 모두 음성판정으로 더 큰 비난은 면했지만, 평소 면역력이 약한 저혼자만 양성확진받은 억울함을 어디에 호소할데가 없어서, 저같은 설계지원 매니저들이 발생되지 않도록 정부에서 비정규직 자들도 재택근무 할 수 있는 제도를 만들어 주시기 바랍니다.'";
+        petiion_text[11] = "거의 90%이상 자영업자만 희생을 시키고 있습니다.',  '또 매월 임대료,전기세,기타 공과금을 납부해야 합니다.',  '자영업자만 그 책임을 다 지고 납부해야 하는',  '코로나로 집합금지가 되면',  '대출원리금도 그 기간이 정지되어야 하며',  '임대료도 그 기간이 정지되어야 하고',  '공과금도 사용 못한 부분에 대한 금액이 정지되어야 하고',  '같이 정지되어야 합니다.',  '왜 코로나 전쟁에 자영업자만 총알받이로 내몰려야 하나요?',  '왜 자영업자만 희생이 이리 커야 하나요?'";
+        
+        for (var key in petiion_text) { 
+            if(petiion_text[key] === "") {
+                continue;
+            }
+            $("input[name='topicnumM12']:input[value="+key+"]").prop('checked', true); 
+            $("#imgM12T").attr("src", img[key]);
+            $("#linkM12T").attr("href", link[key])
+            var text = document.getElementById("M12Text").innerText = petiion_text[key];
+            $("#M12T").load("/graph/pieM12T"+ key);
+            break;
+        }
+        var check = $("input[name='topicnumM12']");
+        check.click(function(){
+            var topicN = $("input[name='topicnumM12']:checked").val();
+            $("#imgM12T").attr("src", img[topicN]);
+            $("#linkM12T").attr("href", link[topicN])
+            var text = document.getElementById("M12Text").innerText = petiion_text[topicN];
+            $("#M12T").load("/graph/pieM12T"+topicN, function(response,stu,xhr){
+                if(stu=="error"){
+                    $("#M12T").empty();    
+                }    
+            });
+        })
+    })
+</script>
+<div class="">
+    <input type="radio" name="topicnumM12" id="bM12T5" value="5" checked="" onclick="">
+    <label for="bM12T5" class="radioT" class="first_label">Topic 5</label>
+    <input type="radio" name="topicnumM12" id="bM12T9" value="9" onclick="">
+    <label for="bM12T9" class="radioT">Topic 9</label>
+    <input type="radio" name="topicnumM12" id="bM12T11" value="11" onclick="">
+    <label for="bM12T11" class="radioT">Topic 11</label>
+</div>
+<div>
+    <table border="1" height="100%"; width="100%" style="margin: 1em auto 1em auto; text-align:center">
+        <thead>
+            <tr>
+                <td style="width: 33.3333%;">Img</td>
+                <td style="width: 33.3333%;">요약</td>
+                <td style="width: 33.3333%;">감성분석</td>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>
+                    <div  style="height: 450px; ">
+                        <a id="linkM12T" href="" target='_blank'>
+                            <img id='imgM12T' onerror="this.src='/static/img/fail.png'" style="  margin-top:75px">
+                        </a>
+                    </div>
+                </td>
+                <td>
+                    <div id='M12Text' style="line-height: 1.6; letter-spacing:3px;"></div>
+                </td>
+                <td  >
+                    <div id='M12T'></div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>

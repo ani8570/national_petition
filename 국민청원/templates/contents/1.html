@@ -1,0 +1,78 @@
+
+
+<script tyee="text/javascript">
+    $(document).ready(function() {
+        var img ={};
+        img[5] = "/static/img/i1t5.jpg";
+        img[9] = "/static/img/i1t9.jpg";
+        img[11] = "/static/img/i1t11.jpg";
+        var link = {};
+        link[5] = "https://www1.president.go.kr/petitions/584339";
+        link[9] = "https://www1.president.go.kr/petitions/0";
+        link[11] = "https://www1.president.go.kr/petitions/584517";
+        var petiion_text = {};
+        petiion_text[5] = "하지만 그것도 얼마 안되어서 더 이상은 치료를 할수없을것 같습니다 ',  '그런데 비보험 부위 (무릎 위와 몸통 부분)는 보험이 안되어서 500원 동전크기만큼이 시술비용이 일백만원이라하네요 ',  '제발 비보험부위와 백반증 환자들이 쉽게 치료를 받을 수 있도록 작은소리를 들어주세요'";
+        petiion_text[9] = "";
+        petiion_text[11] = "호출대기를 하는 상황에는 병원에서 일정거리(병원으로부터 30분 거리) 이상 벗어날 수 없는 등의 거리적 제한이 주어지지만 해당 거리 이내에서는 비교적 자유로이 행동할 수 있다는 점을 들어 사용자의 관리 및 감독 하에 있지 않기 때문에 근로시간으로 인정되지 않는다는 주장이 있습니다.',  '하지만 여전히 사용자의 지시에 따라 이동 시 거리적 제한이 주어지는 것은 사실이며, 이 때문에 노동자는 헌법상 보장된 거주지 이전의 자유를 포기해야만 합니다.',  '또한 호출대기 기간에는 추석이나 설날과 같은 명절에도 본가에 찾아뵙지 못하고 항상 병원 근처에 상주해 있어야 합니다.',  '뿐만 아니라 사용자의 지시를 어기고 병원에서 멀리 벗어나 호출에 응하지 않은 경우에는 응급의료 요청을 받은, 응급의료를 제공하는 당직 의료인력이 정당한 사유 없이 이를 거부하거나 기피한 것으로 간주되어 응급의료에 관한 법률 위반 소지가 될 수 있습니다.',  '이 지시를 지키기 위해 저희는 호출대기 기간에는 상시 연락이 가능하도록 준비된 상태여야 하며, 호출시 병원으로 빠른 복귀를 위해 주말, 공휴일 혹은 새벽과 같은 휴식시간에도 많은 제약을 갖고 있습니다.'";
+        
+        for (var key in petiion_text) { 
+            if(petiion_text[key] === "") {
+                continue;
+            }
+            $("input[name='topicnumM1']:input[value="+key+"]").prop('checked', true); 
+            $("#imgM1T").attr("src", img[key]);
+            $("#linkM1T").attr("href", link[key])
+            var text = document.getElementById("M1Text").innerText = petiion_text[key];
+            $("#M1T").load("/graph/pieM1T"+ key);
+            break;
+        }
+        var check = $("input[name='topicnumM1']");
+        check.click(function(){
+            var topicN = $("input[name='topicnumM1']:checked").val();
+            $("#imgM1T").attr("src", img[topicN]);
+            $("#linkM1T").attr("href", link[topicN])
+            var text = document.getElementById("M1Text").innerText = petiion_text[topicN];
+            $("#M1T").load("/graph/pieM1T"+topicN, function(response,stu,xhr){
+                if(stu=="error"){
+                    $("#M1T").empty();    
+                }    
+            });
+        })
+    })
+</script>
+<div class="">
+    <input type="radio" name="topicnumM1" id="bM1T5" value="5" checked="" onclick="">
+    <label for="bM1T5" class="radioT" class="first_label">Topic 5</label>
+    <input type="radio" name="topicnumM1" id="bM1T9" value="9" onclick="">
+    <label for="bM1T9" class="radioT">Topic 9</label>
+    <input type="radio" name="topicnumM1" id="bM1T11" value="11" onclick="">
+    <label for="bM1T11" class="radioT">Topic 11</label>
+</div>
+<div>
+    <table border="1" height="100%"; width="100%" style="margin: 1em auto 1em auto; text-align:center">
+        <thead>
+            <tr>
+                <td style="width: 33.3333%;">Img</td>
+                <td style="width: 33.3333%;">요약</td>
+                <td style="width: 33.3333%;">감성분석</td>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>
+                    <div  style="height: 450px; ">
+                        <a id="linkM1T" href="" target='_blank'>
+                            <img id='imgM1T' onerror="this.src='/static/img/fail.png'" style="  margin-top:75px">
+                        </a>
+                    </div>
+                </td>
+                <td>
+                    <div id='M1Text' style="line-height: 1.6; letter-spacing:3px;"></div>
+                </td>
+                <td  >
+                    <div id='M1T'></div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>

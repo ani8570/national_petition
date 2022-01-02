@@ -1,0 +1,78 @@
+
+
+<script tyee="text/javascript">
+    $(document).ready(function() {
+        var img ={};
+        img[5] = "/static/img/i15t5.jpg";
+        img[9] = "/static/img/i15t9.jpg";
+        img[11] = "/static/img/i15t11.jpg";
+        var link = {};
+        link[5] = "https://www1.president.go.kr/petitions/596911";
+        link[9] = "https://www1.president.go.kr/petitions/597092";
+        link[11] = "https://www1.president.go.kr/petitions/596780";
+        var petiion_text = {};
+        petiion_text[5] = "하지만 코로나 백신 접종 후 이상증세를 직접 겪어보니 과연 정부가 정말로 코로나 백신 부작용 사례에 대해서 인과관계를 인정해 줄 의향이 있는 것인지 허울뿐인 제도인지 그 실효성에 의문이 들어 글을 남깁니다.',  '- 사촌 동생은 20대 중반의 건강한 남성으로 평소 기저질환이 전혀 없고, 코로나 백신 접종 1달 전 건강검진시 건강상 특이사항이 전혀 없었습니다.',  '- 관할 보건소에는 코로나 백신 부작용 보상이 이루어지기 위해서는 이상증세가 코로나 백신의 부작용이라는 인과관계를 진단해줬을 경우에 한하여 진단서 등 필요 서류를 갖춰 신청할 수 있다고 했습니다.',  '- 정말로 코로나 백신 접종 후 이상증세에 대해 인과관계를 인정해주실 의향이 조금이라도 있는 겁니까?',  '코로나 백신에 대한 안전성을 강조만 하지 말고, 그 부작용 대한 인정과 보상이 현실적으로 가능한지 묻고 싶습니다.'";
+        petiion_text[9] = "자영업자•특정 업종 영업제한 정지, 모임 금지(이동 제한)를 시키는 것이 아니라, 거리두기단계에 따른 다중이용업소, 집합시설, 공공시설 등의 방역수칙(마스크쓰기, 사회적거리두기)을 위반한 방역위반자에게 과태료(벌금)를 단계에 따라 10만원(1단계), 50~100만원(2단계), 100~300만원(3단계) 부과한다.',  '방역위반자의 방역수칙 과태료 규제 3단계 이후에 + 집합시설 1단계부터 (집합시설 제한은 2~3단계로 확실하고 짧게 효과를 보도록 한다.) - 현재의 사회적거리두기 단계 2~2.5단계 정도 확진자 기준이 방역위반자 방역수칙 과태료 규제 3단계에 해당하는 정도로 한다.'";
+        petiion_text[11] = "특히 코로나 시대에 경쟁력을 확보하기위해 공격적인 마케팅을 실행하여 매출이 증가한 곳도 있습니다.',  '이러한 곳은 코로나가 아니었다면 대폭 증가했을 매출이 소폭 상승한데 그쳤을 것이며 이런 노력을 했다하여 지원금을 못받는다면 너무 억울한 상황에 놓이게 됩니다.',  '모든 자영업자가 코로나 시대에 매출을 회복하기 위해 끊임없는 노력을 했고 그것은 죄가 아닙니다.'";
+        
+        for (var key in petiion_text) { 
+            if(petiion_text[key] === "") {
+                continue;
+            }
+            $("input[name='topicnumM15']:input[value="+key+"]").prop('checked', true); 
+            $("#imgM15T").attr("src", img[key]);
+            $("#linkM15T").attr("href", link[key])
+            var text = document.getElementById("M15Text").innerText = petiion_text[key];
+            $("#M15T").load("/graph/pieM15T"+ key);
+            break;
+        }
+        var check = $("input[name='topicnumM15']");
+        check.click(function(){
+            var topicN = $("input[name='topicnumM15']:checked").val();
+            $("#imgM15T").attr("src", img[topicN]);
+            $("#linkM15T").attr("href", link[topicN])
+            var text = document.getElementById("M15Text").innerText = petiion_text[topicN];
+            $("#M15T").load("/graph/pieM15T"+topicN, function(response,stu,xhr){
+                if(stu=="error"){
+                    $("#M15T").empty();    
+                }    
+            });
+        })
+    })
+</script>
+<div class="">
+    <input type="radio" name="topicnumM15" id="bM15T5" value="5" checked="" onclick="">
+    <label for="bM15T5" class="radioT" class="first_label">Topic 5</label>
+    <input type="radio" name="topicnumM15" id="bM15T9" value="9" onclick="">
+    <label for="bM15T9" class="radioT">Topic 9</label>
+    <input type="radio" name="topicnumM15" id="bM15T11" value="11" onclick="">
+    <label for="bM15T11" class="radioT">Topic 11</label>
+</div>
+<div>
+    <table border="1" height="100%"; width="100%" style="margin: 1em auto 1em auto; text-align:center">
+        <thead>
+            <tr>
+                <td style="width: 33.3333%;">Img</td>
+                <td style="width: 33.3333%;">요약</td>
+                <td style="width: 33.3333%;">감성분석</td>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>
+                    <div  style="height: 450px; ">
+                        <a id="linkM15T" href="" target='_blank'>
+                            <img id='imgM15T' onerror="this.src='/static/img/fail.png'" style="  margin-top:75px">
+                        </a>
+                    </div>
+                </td>
+                <td>
+                    <div id='M15Text' style="line-height: 1.6; letter-spacing:3px;"></div>
+                </td>
+                <td  >
+                    <div id='M15T'></div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>

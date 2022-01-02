@@ -1,0 +1,78 @@
+
+
+<script tyee="text/javascript">
+    $(document).ready(function() {
+        var img ={};
+        img[5] = "/static/img/i8t5.jpg";
+        img[9] = "/static/img/i8t9.jpg";
+        img[11] = "/static/img/i8t11.jpg";
+        var link = {};
+        link[5] = "https://www1.president.go.kr/petitions/592098";
+        link[9] = "https://www1.president.go.kr/petitions/591815";
+        link[11] = "https://www1.president.go.kr/petitions/591740";
+        var petiion_text = {};
+        petiion_text[5] = "지역 내 명망 있는 병원에서 상식적으로 도무지 납득되지 않는 사망사건을 겪게 되어 하소연하기 위해 글을 올리게 되었습니다.',  '2020년 8월 12일 21시 경, 인천 권역별응급광역센터와 외상센터를 겸하고 있는 상급종합병원인 ****병원에서 저의 장모님을 잃게 되었습니다.',  '아내와 함께 잠을 못 이루며 병원 측의 CT 판독 결과를 기다렸는데 이러 저런 이유로 결과 통보를 받게 된 것은 CT촬영 이후 15시간이 경과한 17시 경 급하게 수술을 해야 한다고 수술 동의서에 싸인을 하라고 해서 동의서 설명을 듣는 과정에 장모님은 심정지가 발생하여 다섯 번의 심폐소생술을 시도하였지만, 장모님은 아무런 유언 한마디 못하시고 싸늘한 주검이 되었습니다.',  '어떻게 서해권역 응급의료센터에서 평일 오후에 수술할 의사가 없다고 환자를 다른 병원으로 옮기라고 할 수 있습니까?',  '최소한의 직업윤리라도 갖춘 다른 병원에 누워계셨다면 저희 장모님은 지금 저희와 함께 계실 수 있었을 것입니다.'";
+        petiion_text[9] = "이렇게 청원을 하는 이유는 원주시의 아니한 조사와 시민들의 민원대응 코로나 확진 불확실한 동선입니다 타지역과 확연히 비교가 됍니다 사람들에게 더 전파가되고 더 확진이되고 죽어나가야 원주시는 정확한 경로를 공지 할건가요?'";
+        petiion_text[11] = "코로나가 잠잠하고 지역감염이 적은 상황이라면 조심스레 명절을 나도 되겠지만 지금 통제불능으로 지역감염, 깜깜이 확진자까지 광범위하게 퍼지고 있고 이상황에 벌초와 추석은 불에 기름을 들이붓는 격입니다.'";
+        
+        for (var key in petiion_text) { 
+            if(petiion_text[key] === "") {
+                continue;
+            }
+            $("input[name='topicnumM8']:input[value="+key+"]").prop('checked', true); 
+            $("#imgM8T").attr("src", img[key]);
+            $("#linkM8T").attr("href", link[key])
+            var text = document.getElementById("M8Text").innerText = petiion_text[key];
+            $("#M8T").load("/graph/pieM8T"+ key);
+            break;
+        }
+        var check = $("input[name='topicnumM8']");
+        check.click(function(){
+            var topicN = $("input[name='topicnumM8']:checked").val();
+            $("#imgM8T").attr("src", img[topicN]);
+            $("#linkM8T").attr("href", link[topicN])
+            var text = document.getElementById("M8Text").innerText = petiion_text[topicN];
+            $("#M8T").load("/graph/pieM8T"+topicN, function(response,stu,xhr){
+                if(stu=="error"){
+                    $("#M8T").empty();    
+                }    
+            });
+        })
+    })
+</script>
+<div class="">
+    <input type="radio" name="topicnumM8" id="bM8T5" value="5" checked="" onclick="">
+    <label for="bM8T5" class="radioT" class="first_label">Topic 5</label>
+    <input type="radio" name="topicnumM8" id="bM8T9" value="9" onclick="">
+    <label for="bM8T9" class="radioT">Topic 9</label>
+    <input type="radio" name="topicnumM8" id="bM8T11" value="11" onclick="">
+    <label for="bM8T11" class="radioT">Topic 11</label>
+</div>
+<div>
+    <table border="1" height="100%"; width="100%" style="margin: 1em auto 1em auto; text-align:center">
+        <thead>
+            <tr>
+                <td style="width: 33.3333%;">Img</td>
+                <td style="width: 33.3333%;">요약</td>
+                <td style="width: 33.3333%;">감성분석</td>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>
+                    <div  style="height: 450px; ">
+                        <a id="linkM8T" href="" target='_blank'>
+                            <img id='imgM8T' onerror="this.src='/static/img/fail.png'" style="  margin-top:75px">
+                        </a>
+                    </div>
+                </td>
+                <td>
+                    <div id='M8Text' style="line-height: 1.6; letter-spacing:3px;"></div>
+                </td>
+                <td  >
+                    <div id='M8T'></div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>

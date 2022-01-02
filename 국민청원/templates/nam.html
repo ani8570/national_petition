@@ -1,0 +1,219 @@
+{% extends "includes/header.html"  %}
+{% block content %}
+
+<link rel="stylesheet" href="{{ url_for('static', filename='css/nam.css') }}">
+
+<script src="{{ url_for('static', filename='js/nam.js') }}"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script> 
+<script src="jquery.js"></script> 
+
+<script type="text/javascript">
+    $(document).ready(function() {
+        $("#5911Chart").load("/graph/T0"); 
+        $("#datecontents1").load("/contents/1"); 
+        $("#datecontents2").load("/contents/2");
+        $("#datecontents3").load("/contents/3");
+        $("#datecontents4").load("/contents/4");
+        $("#datecontents5").load("/contents/5");
+        $("#datecontents6").load("/contents/6");
+        $("#datecontents7").load("/contents/7");
+        $("#datecontents8").load("/contents/8");
+        $("#datecontents9").load("/contents/9");
+        $("#datecontents10").load("/contents/10");
+        $("#datecontents11").load("/contents/11");
+        $("#datecontents12").load("/contents/12");
+        $("#datecontents13").load("/contents/13");
+        $("#datecontents14").load("/contents/14");
+        $("#datecontents15").load("/contents/15");
+        $("#datecontents16").load("/contents/16");
+        $("#datecontents17").load("/contents/17");
+        $("#datecontents18").load("/contents/18");
+        $("#datecontents19").load("/contents/19");
+        $("#datecontents20").load("/contents/20");
+        $("#datecontents21").load("/contents/21");
+        $("#datecontents22").load("/contents/22");
+        $("#datecontents23").load("/contents/23");
+        $("#datecontents24").load("/contents/24");
+    })
+</script>
+<script type="text/javascript">
+    $(document).ready(function() {
+        $("#bubbleChart").load("/graph/T00"); 
+        $("#emotion-chart").load("/graph/T5bar"); 
+        var check = $("input[type='checkbox']");
+        check.click(function(){
+            $("p").toggle();
+            var chartkind;
+            if($("input[type='checkbox']:checked").val() === "on") {
+                chartkind = "line";
+            } else{
+                chartkind = "bar";
+            }
+            var topicN = $("input[name='topicnum']:checked").val();
+            $("#emotion-chart").load("/graph/T"+topicN+chartkind); 
+        });
+        var check = $("input[name='topicnum']");
+        check.click(function(){
+            var chartkind;
+            if($("input[type='checkbox']:checked").val() === "on") {
+                chartkind = "line";
+            } else{
+                chartkind = "bar";
+            }
+            var topicN = $("input[name='topicnum']:checked").val();
+            $("#emotion-chart").load("/graph/T"+topicN+chartkind); 
+        })
+    })
+</script>
+
+<body> 
+    <div>
+        <div id="5911Chart" style="height:500; width:1000; margin: 0 auto; max-width: 1000px;"></div>
+        <div style="margin-left: 450px ">
+            <div id="bubbleChart" style="clear:both "></div>
+        </div>
+    </div>
+    <div style="clear:left;">
+        <label class="switch">
+            <input type="checkbox">
+            <span class="slider round"></span>
+        </label>
+        <p>Bar</p>
+        <p style="display:none;">Line</p>
+        <div class="">
+            <input type="radio" name="topicnum" id="RT5" value="5" checked="" onclick="">
+            <label for="RT5" class="radioT" class="first_label">Topic 5</label>
+            <input type="radio" name="topicnum" id="RT9" value="9" onclick="">
+            <label for="RT9" class="radioT">Topic 9</label>
+            <input type="radio" name="topicnum" id="RT11" value="11" onclick="">
+            <label for="RT11" class="radioT">Topic 11</label>
+        </div>
+        <div id="emotion-chart">
+        </div>    
+    </div>
+    <div style="clear:both; height:100%; width:100%; float: none; ">
+        <section class="cd-horizontal-timeline">
+        <div class="timeline">
+            <div class="events-wrapper">
+                <div class="events">
+                    <ol>
+                        <li><a href="#0" data-date="01/01/2020" class="selected">Jan 20</a></li>
+                        <li><a href="#0" data-date="01/02/2020">Feb 20</a></li>
+                        <li><a href="#0" data-date="01/03/2020">Mar 20</a></li>
+                        <li><a href="#0" data-date="01/04/2020">Apr 20</a></li>
+                        <li><a href="#0" data-date="01/05/2020">May 20</a></li>
+                        <li><a href="#0" data-date="01/06/2020">Jun 20</a></li>
+                        <li><a href="#0" data-date="01/07/2020">Jul 20</a></li>
+                        <li><a href="#0" data-date="01/08/2020">Aug 20</a></li>
+                        <li><a href="#0" data-date="01/09/2020">Sep 20</a></li>
+                        <li><a href="#0" data-date="01/10/2020">Oct 20</a></li>
+                        <li><a href="#0" data-date="01/11/2020">Nov 20</a></li>
+                        <li><a href="#0" data-date="01/12/2020">Dec 20</a></li>
+                        <li><a href="#0" data-date="01/01/2021">Jan 21</a></li>
+                        <li><a href="#0" data-date="01/02/2021">Feb 21</a></li>
+                        <li><a href="#0" data-date="01/03/2021">Mar 21</a></li>
+                        <li><a href="#0" data-date="01/04/2021">Apr 21</a></li>
+                        <li><a href="#0" data-date="01/05/2021">May 21</a></li>
+                        <li><a href="#0" data-date="01/06/2021">Jun 21</a></li>
+                        <li><a href="#0" data-date="01/07/2021">Jul 21</a></li>
+                        <li><a href="#0" data-date="01/08/2021">Aug 21</a></li>
+                        <li><a href="#0" data-date="01/09/2021">Sep 21</a></li>
+                        <li><a href="#0" data-date="01/10/2021">Oct 21</a></li>
+                        <li><a href="#0" data-date="01/11/2021">Nov 21</a></li>
+                        <li><a href="#0" data-date="01/12/2021">Dec 21</a></li>
+                    </ol>
+                    <span class="filling-line" aria-hidden="true"></span>
+                </div> <!-- .events -->
+            </div> <!-- .events-wrapper -->
+                
+            <ul class="cd-timeline-navigation">
+                <li><a href="#0" class="prev inactive">Prev</a></li>
+                <li><a href="#0" class="next">Next</a></li>
+            </ul> <!-- .cd-timeline-navigation -->
+        </div> <!-- .timeline -->
+
+        <div class="events-content">
+            <ol>
+                <li class="selected" data-date="01/01/2020">
+                    <div id="datecontents1"></div>
+                </li>
+                <li data-date="01/02/2020">
+                    <div id="datecontents2"></div>
+                </li>
+                <li data-date="01/03/2020">
+                    <div id="datecontents3"></div>
+                </li>
+                <li data-date="01/04/2020">
+                    <div id="datecontents4"></div>
+                </li>
+                <li data-date="01/05/2020">
+                    <div id="datecontents5"></div>
+                </li>
+                <li data-date="01/06/2020">
+                    <div id="datecontents6"></div>
+                </li>
+                <li data-date="01/07/2020">
+                    <div id="datecontents7"></div>
+                </li>
+                <li data-date="01/07/2020">
+                    <div id="datecontents7"></div>
+                </li>
+                <li data-date="01/08/2020">
+                    <div id="datecontents8"></div>
+                </li>
+                <li data-date="01/09/2020">
+                    <div id="datecontents9"></div>
+                </li>
+                <li data-date="01/10/2020">
+                    <div id="datecontents10"></div>
+                </li>
+                <li data-date="01/11/2020">
+                    <div id="datecontents11"></div>
+                </li>
+                <li data-date="01/12/2020">
+                    <div id="datecontents12"></div>
+                </li>
+                <li data-date="01/01/2021">
+                    <div id="datecontents13"></div>
+                </li>
+                <li data-date="01/02/2021">
+                    <div id="datecontents14"></div>
+                </li>
+                <li data-date="01/03/2021">
+                    <div id="datecontents15"></div>
+                </li>
+                <li data-date="01/04/2021">
+                    <div id="datecontents16"></div>
+                </li>
+                <li data-date="01/05/2021">
+                    <div id="datecontents17"></div>
+                </li>
+                <li data-date="01/06/2021">
+                    <div id="datecontents18"></div>
+                </li>
+                <li data-date="01/07/2021">
+                    <div id="datecontents19"></div>
+                </li>
+                <li data-date="01/08/2021">
+                    <div id="datecontents20"></div>
+                </li>
+                <li data-date="01/09/2021">
+                    <div id="datecontents21"></div>
+                </li>
+                <li data-date="01/10/2021">
+                    <div id="datecontents22"></div>
+                </li>
+                <li data-date="01/11/2021">
+                    <div id="datecontents23"></div>
+                </li>
+                <li data-date="01/12/2021">
+                    <div id="datecontents24"></div>
+                </li>
+            </ol>
+        </div> <!-- .events-content -->
+        </section>
+    </div>
+</body>
+</html>
+
+{% endblock %}

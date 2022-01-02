@@ -1,0 +1,78 @@
+
+
+<script tyee="text/javascript">
+    $(document).ready(function() {
+        var img ={};
+        img[5] = "/static/img/i13t5.jpg";
+        img[9] = "/static/img/i13t9.jpg";
+        img[11] = "/static/img/i13t11.jpg";
+        var link = {};
+        link[5] = "https://www1.president.go.kr/petitions/596120";
+        link[9] = "https://www1.president.go.kr/petitions/595854";
+        link[11] = "https://www1.president.go.kr/petitions/595373";
+        var petiion_text = {};
+        petiion_text[5] = "제목에서 보신 것과 같이 저는 생활 또는 형편이 어렵거나 생리대를 꼭 필수로 사용하며 몇십년을 이어갈 지출에 대한 문제를 말씀 드리려 합니다.', '그러나 저 말고 저와 같은 상황, 비슷하지만 조금씩 다른 상황 등 아무리 돈이 많다고 한들 필수로 사용해야되는 생리대를 구입하기 위한 지출은 그 누구도 간당이 어려울 거라 생각은 어떻게 안 하십니까?',  '저출산에 대해 고민할 것이 아니라 생리 때문에 스트레스 받고 힘들어하는 여성들이 생리를 하지 않게 하는 시술이나 수술 등을 막기 위해서라도 생리대 가격을 인하 하는 것이 맞는 것 아닌가요?',  '그렇게 저출산과 나라의 안정을 위한다는 분들께서 이렇게 하시면 아직 어린 우리 청소년분들과 그 외에 성인이어도 형편이 어려운 여성분들은 도대체 어떡한답니까?',";
+        petiion_text[9] = "그런데 코로나 19로 인해 더 이상 복지관 등원을 하지 못 하는 상황이 되었다가 마스크 착용 시에는 등원 가능하다는 이야기를 들었으나 저희 아이는 불가능하기에 자연히 가정 돌봄을 하는 상황입니다.',  '코로나 걱정으로 인해 아이와 저, 그리고 다른 가족들까지 지금까지 집에서 갇혀서 생활을 하다보니 아이 본인은 물론이고 우리 가족은 지치고 고통스러운 생활을 하고 있습니다.',  '코로나19 백신이 곧 나오게 된다고 합니다.',  '대통령님, 저의 바람은 백신이 나오게 된다면 저희 아이와 같은 장애우들에게 우선적으로 접종할 수 있는 기회를 주셔서 저희 아이 그리고 가족이 사회에 참여할 수 있는 권리를 보장해주길 간곡히 부탁드립니다.'";
+        petiion_text[11] = "가정보육을 하는 가정에서 등원하지 못하는 ', '가정양육수당을 받고자 12월 말 날짜로 ', '가정보육을 하는 가정도 굽어 살펴 '";
+        
+        for (var key in petiion_text) { 
+            if(petiion_text[key] === "") {
+                continue;
+            }
+            $("input[name='topicnumM13']:input[value="+key+"]").prop('checked', true); 
+            $("#imgM13T").attr("src", img[key]);
+            $("#linkM13T").attr("href", link[key])
+            var text = document.getElementById("M13Text").innerText = petiion_text[key];
+            $("#M13T").load("/graph/pieM13T"+ key);
+            break;
+        }
+        var check = $("input[name='topicnumM13']");
+        check.click(function(){
+            var topicN = $("input[name='topicnumM13']:checked").val();
+            $("#imgM13T").attr("src", img[topicN]);
+            $("#linkM13T").attr("href", link[topicN])
+            var text = document.getElementById("M13Text").innerText = petiion_text[topicN];
+            $("#M13T").load("/graph/pieM13T"+topicN, function(response,stu,xhr){
+                if(stu=="error"){
+                    $("#M13T").empty();    
+                }    
+            });
+        })
+    })
+</script>
+<div class="">
+    <input type="radio" name="topicnumM13" id="bM13T5" value="5" checked="" onclick="">
+    <label for="bM13T5" class="radioT" class="first_label">Topic 5</label>
+    <input type="radio" name="topicnumM13" id="bM13T9" value="9" onclick="">
+    <label for="bM13T9" class="radioT">Topic 9</label>
+    <input type="radio" name="topicnumM13" id="bM13T11" value="11" onclick="">
+    <label for="bM13T11" class="radioT">Topic 11</label>
+</div>
+<div>
+    <table border="1" height="100%"; width="100%" style="margin: 1em auto 1em auto; text-align:center">
+        <thead>
+            <tr>
+                <td style="width: 33.3333%;">Img</td>
+                <td style="width: 33.3333%;">요약</td>
+                <td style="width: 33.3333%;">감성분석</td>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>
+                    <div  style="height: 450px; ">
+                        <a id="linkM13T" href="" target='_blank'>
+                            <img id='imgM13T' onerror="this.src='/static/img/fail.png'" style="  margin-top:75px">
+                        </a>
+                    </div>
+                </td>
+                <td>
+                    <div id='M13Text' style="line-height: 1.6; letter-spacing:3px;"></div>
+                </td>
+                <td  >
+                    <div id='M13T'></div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
